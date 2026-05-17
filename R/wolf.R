@@ -87,7 +87,7 @@ Wolf <- R6::R6Class(
     }),
 
     #' @field entries The list of log entries captured by the logger. Read only.
-    entires = local({
+    entries = local({
       function(value) {
         if (!missing(value)) {
           stop(

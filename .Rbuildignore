@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^.*\.log$
+^\.positai$
+^\.claude$

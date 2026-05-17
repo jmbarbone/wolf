@@ -13,7 +13,7 @@ WolfHanlder <- R6::R6Class(
 
       self$handle(entry)
       self
-    }
+    },
     handle = function(entry) NULL,
     write = function(entry) NULL,
     close = function() {
@@ -35,8 +35,8 @@ ConnectionHandler <- R6::R6Class(
     close = function() {
       if (
         isinstance(private$con, "connection") &&
-        isOpen(con) &&
-        !con %in% list(stdout(), stderr())
+          isOpen(con) &&
+          !con %in% list(stdout(), stderr())
       ) {
         close(private$con)
       }
@@ -50,7 +50,7 @@ ConnectionHandler <- R6::R6Class(
   private <- list(
     con = NULL,
     make_entry = function() NULL,
-    writer = function() NULL,
+    writer = function() NULL
   )
 )
 
@@ -127,7 +127,7 @@ TableHandler <- R6::R6Class(
           )
           cat("\n", file = private$con)
         },
-         stop("unknown table type:", type)
+        stop("unknown table type:", type)
       )
     }
   ),
@@ -142,7 +142,6 @@ TableHandler <- R6::R6Class(
     }
   )
 )
-
 
 
 #' Wolf default handlers
