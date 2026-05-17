@@ -1,0 +1,20 @@
+Package: wolf
+Type: Package
+Title: Write Out Log Files
+Version: 0.0.0.9000
+Authors@R: person(
+      "Jordan Mark", "Barbone",
+      email = "jmbarbone@gmail.com",
+      role = c("aut", "cph", "cre"),
+      comment = c(ORCID = "0000-0001-9788-3628")
+    )
+Description: Provides a class to manage logging of conditions.  Includes
+    built-in writing functions for specific cases.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Language: en-US
+RoxygenNote: 7.3.3
+Imports: 
+    R6 (>= 2.6.1),
+    utils

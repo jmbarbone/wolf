@@ -1,0 +1,68 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# wolf
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of wolf is to generate simple and flexible logging for **R**.
+
+## Installation
+
+You can install the development version of wolf like so:
+
+``` r
+pak::pak("github::jmbarbone/wolf")
+```
+
+## Example
+
+You can create a new logging object with a call to `wolf()`.
+The `Wolf` class contains methods for including built-in handlers.
+
+Simple insert you logging message into the method.
+
+The `"stdout"` handler ensures that all log messages are printed to the console.
+
+
+```{r}
+#| label: setup
+library(wolf)
+w <- wolf("readme")
+w$add_handler("stdout")
+w$info("Hello, wolf!")
+w$debug("This is a debug message.")
+```
+
+The `Wolf` class also has a `$log()` method, which accepts an expression and picks up on conditions that are signaled.
+
+The **message** below is still printed, but we've also stored the message in the signalled condition.
+
+```{r}
+#| label: more
+hello <- function() {
+  message("I'm inside a function")
+  NULL
+}
+
+w$log(hello())
+try(w$log(df$column))
+```
+
+## Other logging packages
+
+...
+
