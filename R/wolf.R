@@ -26,22 +26,15 @@ wolf <- function(
 #' @param name Name of your logger
 #' @md
 #' @examples
-#' temp <- tempfile()
-#' write_to_temp <- function(cnd) {
-#'   cat(
-#'     trimws(conditionMessage(cnd)),
-#'     "\n",
-#'     sep = "",
-#'     file = temp,
-#'     append = TRUE
-#'   )
-#' }
 #' w <- wolf("example", .default = FALSE)
-#' w$add_handler(temp_writer = write_to_temp)
+#' my_handler <- LogHandler$new("e1", path = tempfile(fileext = ".log"))
+#' w$add_handler(my_handler)
+#' # ensure that logging is written to the stdout()
+#' w$add_handler(ConnectionHandler$new("e2", description = ""))
 #' w$log(message("this"))
 #' w$debug("debugging info")
-#' readLines(temp)
-#' invisible(file.remove(temp))
+#' readLines(my_handler$path)
+#' invisible(file.remove(my_handler$path))
 #' @export
 # nolint next: object_name_linter.
 Wolf <- R6::R6Class(
@@ -55,7 +48,7 @@ Wolf <- R6::R6Class(
           return(..level)
         }
 
-        value <- match.arg(value, c("debug", "info", "warn", "error", "none"))
+        value <- fuj::match_arg(value, c("debug", "info", "warn", "error", "none"))
 
         private$levels <- switch(
           value,
@@ -127,22 +120,30 @@ Wolf <- R6::R6Class(
       self$name <- name
       self$path <- path
       self$level <- level
-      if (.default) {
-        self$add_handler("default")
-      }
+      self
     },
 
     #' @description Evaluate an expression and log any conditions that arise
     #' @param expr An expression to evaluate.
-    log = function(expr) {
+    #' @param frame The parent frame
+    log = function(expr, frame = parent.frame()) {
+      time <- Sys.time()
       expr <- substitute(expr)
       withRestarts(
         invokeRestart(
           "implement_wolf_handlers",
-          tryCatch(eval.parent(expr), condition = \(cnd) {
-            cnd$call <- NULL
-            cnd
-          })
+          tryCatch(
+            eval.parent(expr), 
+            condition = function(cnd) {
+              cnd$call <- NULL
+              list(
+                condition = cnd,
+                frame = frame,
+                time = time,
+                expr = expr
+              )
+            }
+          )
         ),
         implement_wolf_handlers = private$impl_handlers
       )
@@ -154,44 +155,41 @@ Wolf <- R6::R6Class(
     #'   assumed to be built-in default handlers
     add_handler = function(...) {
       handlers <- list(...)
-      w <- which(vapply(handlers, is.character, NA))
-      stopifnot(vapply(handlers[-w], is.function, NA))
+      names <- names(handlers) %||% rep("", length(handlers))
 
-      for (i in w) {
-        # fmt: skip
-        # nolint start: line_length_linter.
-        handler <- switch(
-          handlers[[i]],
-          default = list(.default = wolf_default_handler),
-          file = ,
-          log = list(.default_file_handler_log = wolf_default_writer_log(self$name, self$path)),
-          csv = list(.default_file_handler_csv = wolf_default_writer_csv(self$name, self$path)),
-          tsv = list(.default_file_handler_tsv = wolf_default_writer_tsv(self$name, self$path)),
-          dcf = list(.default_file_handler_dcf = wolf_default_writer_dcf(self$name, self$path)),
-          stdout = list(.default_stdout_handler = wolf_default_con_handler(self$name, stdout())),
-          stderr = list(.default_stderr_handler = wolf_default_con_handler(self$name, stderr())),
-          null = list(.default_null_handler = \() NULL),
-          # nolint end: line_length_linter.
-          {
-            warning(
-              "unknown default handler type: ",
-              handlers[[i]],
-              call. = FALSE
-            )
-            NULL
+      handlers <- mapply(
+        function(name, handler) {
+          if (inherits(handler, "WolfHandler")) {
+            if (nzchar(name)) {
+              handler$name <- name
+            }
+            return(handler)
           }
-        )
+          
+          if (!nzchar(name)) {
+            stop(fuj::input_error("cannot add unnamed R6 handler"))
+          }
+          
+          if (inherits(handler, "R6ClassGenerator")) {
+            handler$new(name = name)
+          } else if (is.character(handler)) {
+            switch(
+              handler,
+              "log" = LogHandler$new(name = name),
+              "csv" = TableHandler$new(name = name, type = "csv"),
+              "tsv" = TableHandler$new(name = name, type = "tsv"),
+              "dcf" = TableHandler$new(name = name, type = "dcf"),
+              stop(fuj::input_error("unknown handler type: ", handler))
+            )
+          }
+        },
+        name = names,
+        handler = handlers,
+        SIMPLIFY = FALSE,
+        USE.NAMES = FALSE
+      )
 
-        if (is.null(handler)) {
-          handlers[[i]] <- NA
-          next
-        }
-
-        handlers[[i]] <- NULL
-        handlers <- append(handlers, handler, i - 1L)
-      }
-
-      handlers <- handlers[!vapply(handlers, identical, NA, NA)]
+      names(handlers) <- fuj::vap_chr(handlers, "name")
       private$append_handlers(handlers)
       invisible(self)
     },
@@ -240,72 +238,57 @@ Wolf <- R6::R6Class(
     levels = character(),
     handlers_ = list(),
     entries_ = list(),
-    impl_handlers = function(cnd) {
-      time <- Sys.time()
-      type <- get_type(cnd)
-
-      spec <- list(
-        time = time,
-        type = type, # TODO use "level"
-        name = name,
-        message = conditionMessage(cnd),
-        call = conditionCall(cnd),
-        classes = class(cnd)
-      )
-      class(spec) <- "wolf_log_entry"
-
-      # store original type in spec
+    impl_handlers = function(spec) {
+      type <- get_type(spec$condition)
       type <- switch(
         type,
         message = "info",
         warning = "warn",
+        condition = "debug", #?
         type
       )
 
+      entry <- wolf_entry(
+        name = self$name,
+        message = conditionMessage(spec$condition),
+        time = spec$time,
+        type = type,
+        call = conditionCall(spec$condition),
+        frame = spec$frame,
+        expr = spec$expr
+      )
+      
+      private$append_entries(entry)
+
       for (handler in self$handlers) {
         if (type %in% private$levels) {
-          handler(cnd)
-          # TODO use do.call(handler, spec)
+          handler$process(entry)
         }
       }
     },
 
+    append_entries = function(entry) {
+      private$entries_ <- do.call(wolf_entries, c(private$entries_, list(entry)))
+    },
+
     append_handlers = function(new) {
-      stopifnot(is.list(new), nzchar(names(new)))
+      # silently removes duplicate handlers
       private$handlers_ <- c(new, private$handlers_)
-
-      # templated from globalCallingHandlers()
-      for (name in unique(names(private$handlers_))) {
-        w <- which(name == names(private$handlers_))
-        handlers <- lapply(private$handlers_[w], unclass)
-        dups <- duplicated(handlers)
-
-        if (any(dups)) {
-          message(sprintf(
-            "pushing duplicate `%s` handler on top of the stack",
-            name
-          ))
-          private$handlers_ <- private$handlers_[-w[dups]]
-        }
-      }
+      dupes <- duplicated(names(private$handlers_), fromLast = TRUE)
+      private$handlers_ <- private$handlers_[!duplicated(names(private$handlers_), fromLast = TRUE)]
     },
 
     signal = function(
       type = c("debug", "info", "warn", "error"),
       ...
     ) {
-      type <- match.arg(type)
+      type <- fuj::match_arg(type)
       if (!type %in% private$levels) {
         return()
       }
 
-      cnd <- structure(
-        list(
-          message = paste0(..., collapse = ""),
-          call = NULL
-        ),
-        class = c("condition", type)
-      )
+      cnd <- list(message = paste0(..., collapse = ""), call = NULL)
+      class(cnd) <- c("condition", type)
       op <- options(show.error.messages = FALSE)
       on.exit(options(op), add = TRUE)
       self$log(signalCondition(cnd))
