@@ -1,7 +1,7 @@
 get_type <- function(cnd) {
   if (inherits(cnd, "message")) {
     "message"
-  } else if (inherits(cnd, c("warning", "warning"))) {
+  } else if (inherits(cnd, c("warn", "warning"))) {
     "warning"
   } else if (inherits(cnd, "error")) {
     "error"
