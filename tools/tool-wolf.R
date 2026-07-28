@@ -1,7 +1,7 @@
 devtools::load_all(".")
 w <- wolf()
-w$add_handler("log", "dcf", "csv", "csv", "tsv")
-w$add_handler("logger", "log")
+w$add_handler(LogHandler$new("my-log", clear = TRUE))
+w$add_handler(TableHandler$new("my-csv", type = "csv", clear = TRUE))
 w$log(message(toString(colnames(penguins))))
 w$log(warning("that"))
 w$info("this is a MESSAGE")
@@ -9,6 +9,7 @@ w$debug("DeBuG mY cOdE")
 w$warn("WARN WARN")
 w$error("fdjskalfdsj")
 w$debug(toString(unclass(head(penguins))))
+# w$entries
 
 try(w$log(stop("this still shows up?")))
 
