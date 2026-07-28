@@ -11,22 +11,15 @@ allows you to define custom handlers for different types of conditions and
 log them to various formats (text files, CSV, TSV, DCF).
 }
 \examples{
-temp <- tempfile()
-write_to_temp <- function(cnd) {
-  cat(
-    trimws(conditionMessage(cnd)),
-    "\n",
-    sep = "",
-    file = temp,
-    append = TRUE
-  )
-}
 w <- wolf("example", .default = FALSE)
-w$add_handler(temp_writer = write_to_temp)
+my_handler <- LogHandler$new("e1", path = tempfile(fileext = ".log"))
+w$add_handler(my_handler)
+# ensure that logging is written to the stdout()
+w$add_handler(ConnectionHandler$new("e2", description = ""))
 w$log(message("this"))
 w$debug("debugging info")
-readLines(temp)
-invisible(file.remove(temp))
+readLines(my_handler$path)
+invisible(file.remove(my_handler$path))
 }
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
@@ -102,13 +95,14 @@ directory.}
   Evaluate an expression and log any conditions that arise
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{Wolf$log(expr)}
+    \preformatted{Wolf$log(expr, frame = parent.frame())}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
       \item{\code{expr}}{An expression to evaluate.}
+      \item{\code{frame}}{The parent frame}
     }
     \if{html}{\out{</div>}}
   }
