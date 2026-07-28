@@ -1,148 +1,366 @@
-WolfHanlder <- R6::R6Class(
+# write(entry) should then handle everything within the entry
+# close() should be used to handle anything 
+
+# new_handler <- function(name, write = NULL, close = NULL, ...) {
+#   public <- list(write = write, close = close)
+#   public <- public[!vapply(public, is.null, NA)]
+#   R6::R6Class(name, inherit = WolfHandler, public = public)
+# }
+
+# public methods should not be modified
+
+#' WolfHandler
+#' 
+#' Public methods need to be called directly through the [wolf::Wolf] class
+#' 
+#' Public fields can include different settings
+#' 
+#' @export
+WolfHandler <- R6::R6Class(
   "WolfHandler",
   public = list(
+    #' @field name Identifier
     name = NULL,
-    process = function() {
-      if (!self$active) {
-        return(self)
-      }
 
-      if (!self$queued) {
-        return(self)
-      }
+    #' @field active Is active
+    active = TRUE,
 
-      self$handle(entry)
+    #' @field delay Whether entries should be written immediately or not.
+    #' For intrusive writing processes, delaying can be more effficient.  This
+    #' can be toggled on/off during processing as needed
+    delay = FALSE,
+
+    #' @param name name identifier
+    #' @param ... Additional arguments (not used)
+    #' @description Initialized object
+    initialize = function(name, ...) {
+      self$name <- name
       self
     },
-    handle = function(entry) NULL,
-    write = function(entry) NULL,
-    close = function() {
-      tryCatch(private$finalize(), error = )
-    }
-  )
-)
 
-new_handler <- function(name, write = NULL, close = NULL, ...) {
-  public <- list(write = write, close = close)
-  public <- public[!vapply(public, is.null, NA)]
-  R6::R6Class(name, inherit = WolfHanlder, public = public)
-}
-
-ConnectionHandler <- R6::R6Class(
-  "WolfConnectionHandler",
-  inherit = WolfHanlder,
-  public = list(
-    close = function() {
-      if (
-        isinstance(private$con, "connection") &&
-          isOpen(con) &&
-          !con %in% list(stdout(), stderr())
-      ) {
-        close(private$con)
+    #' @param entry A [wolf::wolf_entry()] object that will be passed into the
+    #' class
+    #' @description Processes entries; the main driver
+    process = function(entry) {
+      if (!self$active) {
+        # completely ignores entry; doesn't bother to save
+        return(self)
       }
+
+      if (self$delay) {
+        # simply add to queue -- don't perform any other actions
+        private$add_queue(entry)
+      } else {
+        private$add_entry(entry)
+        self$write(entry)
+      }
+
+      self
     },
-    handle = function(entry) {
-      cnd <- entry$condition
-      entry <- private$make_entry(cnd)
+
+    #' @param entry A [wolf::wolf_entry()] object
+    #' @description Calls the private writer method.  When `sel$delay = FALSE`,
+    #' and there are entries in `self$queued`, each file is written 
+    write = function(entry) {
+      if (!private$initialized) {
+        private$init()
+        private$initialized <- TRUE
+      }
+
+      if (!self$delay) {
+        private$write_delayed()
+      }
+
       private$writer(entry)
+    },
+
+    #' @description Read entries from the handler
+    read = function() {
+      private$reader()
+    },
+    
+    #' @description Calls the private finalize() method
+    close = function() {
+      self$delay <- FALSE
+      private$finalize()
     }
   ),
-  private <- list(
-    con = NULL,
-    make_entry = function() NULL,
-    writer = function() NULL
+  private = list(
+    initialized = FALSE,
+    entries = wolf_entry(),
+    queue = wolf_entries(),
+    add_entry = function(entry) {
+      private$entries <- do.call(wolf_entries,  c(private$entries, list(entry)))
+    },
+    add_queue = function(entry) {
+      private$queue <- do.call(wolf_entries,  c(private$queue, list(entry)))
+    },
+    write_delayed = function() {
+      if (is.function(private$queued_writer)) {
+        private$queued_writer(private$queue)
+        private$queue <- wolf_entries()
+      } else {
+        for (q in private$queued) {
+          private$writer(q)
+          private$queue <- private$queue[-1L]
+        }
+      }
+    },
+
+    # modifiable
+    finalize = function() {
+      if (self$active) {
+        private$write_delayed()
+      }
+    },
+    writer = function(entry) NULL,
+    queued_writer = NULL,
+    reader = function() private$entries,
+    init = function() NULL
   )
 )
 
-LogHandler <- R6::R6Class(
-  "WolfLogHandler",
-  inherit = WolfConnectionHandler,
+#' Connection handler
+#' 
+#' Write entries to a connection
+#' 
+#' No default `private$writer()` methods applied
+#' 
+#' @export
+ConnectionHandler <- R6::R6Class(
+  "WolfConnectionHandler",
+  inherit = WolfHandler,
+  public = list(
+    #' @field description The file connection description
+    description = ""
+  ),
   private = list(
-    make_entry = function(cnd) {
-      list(
-        time = Sys.time(),
-        type = get_type(cnd),
-        name = self$name,
-        message = trimws(conditionMessage(cnd))
-      )
+    connection = NULL,
+    finalize = function() {
+      if (self$active) {
+        private$write_delayed()
+      }
+      if (
+        inherits(private$connection, "connection") &&
+          isOpen(connection) &&
+          !connection %in% list(stdout(), stderr())
+      ) {
+        close(private$connection)
+      }
     },
     writer = function(entry) {
-      msg <- sprintf(
-        "%s [%s] (%s) %s\n",
-        format(entry$time, "%Y-%m-%d %H:%M:%S"),
-        entry$type,
-        entry$name,
-        paste0(entry$message, collapse = "")
-      )
+      cat(format(entry), file = self$description)
+    }
+  )
+)
 
-      msg <- paste(msg, collapse = "")
-      msg <- trimws(msg)
-      msg <- paste0(msg, "\n")
-      cat(msg, file = private$con)
+#' File connection handler
+#' 
+#' @export
+FileHandler <- R6::R6Class(
+  "FileHandler",
+  inherit = WolfHandler,
+  public = list(
+    #' @field path The file path
+    path = NULL,
+
+    #' @description Initialized the handler
+    #' @param name Handler name
+    #' @param path Path name.  When `NULL` resolves to a default name
+    #' @param clear Removes file (if already exists)
+    #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
+    initialize = function(
+      name, 
+      path = NULL,
+      clear = FALSE,
+      ...
+    ) {
+      super$initialize(name, ...)
+      path <- path %||% sprintf(".wolf-log-handler-%s%s", self$name, private$path_ext)
+      self$path <- normalizePath(path, "/", mustWork = FALSE)
+      if (clear && file.exists(self$path)) {
+        file.remove(self$path)
+      }
+    }
+  ),
+  private = list(
+    reader = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+      readLines(self$path)
+    },
+    path_ext = ""
+  )
+)
+
+#' Wolf default log handler
+#' 
+#' @export
+LogHandler <- R6::R6Class(
+  "WolfLogHandler",
+  inherit = FileHandler,
+  private = list(
+    path_ext = ".log",
+    writer = function(entry) {
+      cat(
+        trimws(format(entry)),
+        "\n",
+        sep = "",
+        file = self$path,
+        append = TRUE
+      )
     }
   )
 )
 
 TableHandler <- R6::R6Class(
   "WolfTableHandler",
-  inherit = WolfConnectionHandler,
+  inherit = FileHandler,
   public = list(
     initialize = function(
       name,
-      con,
-      type = c("csv", "tsv", "dcf")
+      path = NULL,
+      type = c("csv", "tsv"),
+      ...
     ) {
-      self$name <- name
-      self$writer <- switch(
-        match.arg(type),
-        csv = function(entry) {
-          utils::write.table(
-            fuj::quick_df(entry),
-            file = private$con,
-            sep = ",",
-            dec = ".",
-            qmethod = "double",
-            row.names = FALSE,
-            col.names = !file.exists(private$con)
-          )
+      type <- fuj::match_arg(type)
+      private$path_ext <- paste0(".", type)
+      super$initialize(name, path, ...)
+      switch(
+        type,
+        "csv" = {
+          private$active_reader <- private$reader_csv
+          private$active_writer <- private$writer_csv
         },
-        tsv = function(entry) {
-          utils::write.table(
-            fuj::quick_df(entry),
-            file = private$con,
-            sep = "\t",
-            dec = ".",
-            qmethod = "double",
-            row.names = FALSE,
-            col.names = !file.exists(private$con)
-          )
+        "tsv" = {
+          private$active_reader <- private$reader_tsv
+          private$active_writer <- private$writer_tsv
         },
-        dcf = function(entry) {
-          write.dcf(
-            entry,
-            file = private$con,
-            append = TRUE,
-            indent = 2L,
-            width = Inf,
-          )
-          cat("\n", file = private$con)
-        },
-        stop("unknown table type:", type)
+        stop(fuj::internal_error())
       )
+
+      private$queued_writer <- function(entries) {
+        entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
+        entries <- Reduce(rbind, entries)
+        private$writer(entries)
+      }
     }
   ),
   private = list(
-    make_entry = function(cnd) {
-      list(
-        time = Sys.time(),
-        type = get_type(cnd),
-        name = self$name,
-        message = trimws(conditionMessage(cnd))
+    writer = function(entry) {
+      if (is.null(entry)) {
+        return()
+      }
+
+      if (!is.data.frame(entry)) {
+        entry <- fuj::quick_df(as.list(entry))
+      }
+
+      private$active_writer(entry)
+    },
+    active_writer = NULL,
+    writer_csv = function(entry) {
+      utils::write.table(
+        entry,
+        file = self$path,
+        sep = ",",
+        dec = ".",
+        qmethod = "double",
+        row.names = FALSE,
+        col.names = !file.exists(self$path),
+        na = ""
+      )
+    },
+    writer_tsv = function(entry) {
+      utils::write.table(
+        entry,
+        file = self$path,
+        sep = "\t",
+        dec = ".",
+        qmethod = "double",
+        row.names = FALSE,
+        col.names = !file.exists(self$path)
+      )
+    },
+    reader = function() {
+      private$active_reader()
+    },
+    active_reader = NULL,
+    reader_csv = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+      utils::read.table(
+        file = self$path,
+        header = TRUE,
+        sep = ",",
+        quote= "\"",
+        dec = ".",
+        na.strings = ""
+      )
+    },
+    reader_tsv = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+      utils::read.table(
+        file = self$path,
+        header = TRUE,
+        sep = "\t",
+        quote= "\"",
+        dec = ".",
+        na.strings = ""
       )
     }
   )
 )
 
+DcfHandler <- R6::R6Class(
+  "WolfDcfHandler",
+  inherit = FileHandler,
+  private = list(
+    writer = function(entry) {
+      write.dcf(
+        as.list(entry),
+        file = self$path,
+        append = file.exists(self$path),
+        indent = 2L,
+        width = Inf,
+      )
+      cat("\n", file = self$path, append = TRUE)
+    },
+    reader = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+      read.dcf(self$path)
+    }
+  )
+)
+
+# Not meant to be used externally
+InternalHandler <- R6::R6Class(
+  "WolfInternalHandler",
+  inherit = DcfHandler,
+  public = list(
+    initialize = function(name = "wolf-internal", ...) {
+      dir <- tools::R_user_dir("wolf", "cache")
+      dir.create(dir, showWarnings = FALSE, recursive = TRUE)
+      path <- file.path(dir, sprintf("%s.dcf", name))
+      private$retain <- isTRUE(getOption("wolf.retain_internal_log", FALSE))
+      super$initialize(name, path, clear = !private$retain, ...)
+    }
+  ),
+  private = list(
+    retain = NA,
+    finalize = function() {
+      if (!private$retain && file.exists(self$path)) {
+          file.remove(self$path)
+        }
+    }
+  )
+)
 
 #' Wolf default handlers
 #'
