@@ -14,8 +14,7 @@ wolf_entry <- function(
   message = NULL,
   time = Sys.time(),
   type = c("debug", "info", "warn", "error"),
-  call = NULL,
-  frame = NULL,
+  frame = parent.frame(),
   expr = NULL,
   condition = NULL
 ) {
@@ -26,7 +25,6 @@ wolf_entry <- function(
     name = name,
     message = message,
     frame = frame,
-    call = call,
     expr = expr,
     condition = condition
   )
@@ -63,9 +61,6 @@ print.wolf_entry <- function(x, method = c("default", "compact"), ...) {
       cli::col_silver("frame: "),
       if (!is.null(x$frame)) cli::col_grey(format(x$frame)),
       "\n",
-      cli::col_silver("call: "),
-      if (!is.null(x$call)) cli::col_grey(format(x$call)),
-      "\n",
       x$message,
       "\n",
       sep = ""
@@ -87,13 +82,26 @@ print.wolf_entry <- function(x, method = c("default", "compact"), ...) {
 }
 
 #' @export
-format.wolf_entry <- function(x, ...) {
-  sprintf(
-    "%s [%s] (%s) %s",
-    format(x$time, "%Y-%m-%d %H:%M:%S"),
-    x$type,
-    x$name %||% "",
-    paste0(x$message %||% "", collapse = "")
+format.wolf_entry <- function(x, method = c("partial", "full"), ...) {
+  method <- fuj::match_arg(method)
+  switch(
+    method,
+    partial = sprintf(
+      "%s [%s] (%s) %s",
+      format(x$time, "%Y-%m-%d %H:%M:%S"),
+      x$type,
+      x$name,
+      paste0(x$message %||% "", collapse = "")
+    ),
+    full = sprintf(
+      "%s [%s] (%s) %s `%s` %s",
+      format(x$time, "%Y-%m-%d %H:%M:%S"),
+      x$type,
+      x$name %||% "",
+      paste0(x$message %||% "", collapse = ""),
+      format(x$expr %||% NA),
+      format(x$frame %||% NA)
+    )
   )
 }
 
@@ -103,7 +111,6 @@ as.list.wolf_entry <- function(x, ...) {
   x$message <- x$message %||% ""
   x$name <- x$name %||% ""
   x$condition <- x$condition %||% ""
-  x$call <- format(x$call %||% NA)
   x$expr <- format(x$expr %||% NA)
   x$frame <- format(x$frame %||% NA)
   x
