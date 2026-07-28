@@ -253,7 +253,6 @@ Wolf <- R6::R6Class(
         message = conditionMessage(spec$condition),
         time = spec$time,
         type = type,
-        call = conditionCall(spec$condition),
         frame = spec$frame,
         expr = spec$expr
       )
