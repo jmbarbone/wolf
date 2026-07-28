@@ -96,11 +96,11 @@ WolfHandler <- R6::R6Class(
       private$queue <- do.call(wolf_entries,  c(private$queue, list(entry)))
     },
     write_delayed = function() {
-      if (is.function(private$queued_writer)) {
-        private$queued_writer(private$queue)
+      if (is.function(private$bulk_writer)) {
+        private$bulk_writer(private$queue)
         private$queue <- wolf_entries()
       } else {
-        for (q in private$queued) {
+        for (q in private$queue) {
           private$writer(q)
           private$queue <- private$queue[-1L]
         }
@@ -123,8 +123,6 @@ WolfHandler <- R6::R6Class(
 #' Connection handler
 #' 
 #' Write entries to a connection
-#' 
-#' No default `private$writer()` methods applied
 #' 
 #' @export
 ConnectionHandler <- R6::R6Class(
@@ -158,7 +156,7 @@ ConnectionHandler <- R6::R6Class(
 #' 
 #' @export
 FileHandler <- R6::R6Class(
-  "FileHandler",
+  "WolfFileHandler",
   inherit = WolfHandler,
   public = list(
     #' @field path The file path
@@ -221,98 +219,129 @@ TableHandler <- R6::R6Class(
     initialize = function(
       name,
       path = NULL,
-      type = c("csv", "tsv"),
+      table_opts = list(),
       ...
     ) {
-      type <- fuj::match_arg(type)
-      private$path_ext <- paste0(".", type)
       super$initialize(name, path, ...)
-      switch(
-        type,
-        "csv" = {
-          private$active_reader <- private$reader_csv
-          private$active_writer <- private$writer_csv
-        },
-        "tsv" = {
-          private$active_reader <- private$reader_tsv
-          private$active_writer <- private$writer_tsv
-        },
-        stop(fuj::internal_error())
-      )
-
-      private$queued_writer <- function(entries) {
-        entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
-        entries <- Reduce(rbind, entries)
-        private$writer(entries)
-      }
+      # TODO make safer
+      private$table_opts <- modifyList(private$table_opts, table_opts)
     }
   ),
   private = list(
+    path_ext = ".txt",
+    table_opts = list(
+      # x = ,
+      # file = "",
+      # append = FALSE,
+      quote = TRUE, 
+      sep = " ",
+      eol = "\n", 
+      na = "", 
+      dec = ".", 
+      row.names = FALSE,
+      qmethod = "escape", 
+      fileEncoding = "UTF-8"
+    ),
     writer = function(entry) {
-      if (is.null(entry)) {
-        return()
-      }
-
-      if (!is.data.frame(entry)) {
-        entry <- fuj::quick_df(as.list(entry))
-      }
-
-      private$active_writer(entry)
-    },
-    active_writer = NULL,
-    writer_csv = function(entry) {
       utils::write.table(
-        entry,
+        x = as.list(entry),
         file = self$path,
-        sep = ",",
-        dec = ".",
-        qmethod = "double",
-        row.names = FALSE,
-        col.names = !file.exists(self$path),
-        na = ""
-      )
-    },
-    writer_tsv = function(entry) {
-      utils::write.table(
-        entry,
-        file = self$path,
-        sep = "\t",
-        dec = ".",
-        qmethod = "double",
-        row.names = FALSE,
-        col.names = !file.exists(self$path)
+        sep = private$table_opts$sep,
+        dec = private$table_opts$dec,
+        qmethod = private$table_opts$qmethod,
+        row.names = private$table_opts$row.names,
+        col.names = FALSE,
+        append = TRUE
       )
     },
     reader = function() {
-      private$active_reader()
-    },
-    active_reader = NULL,
-    reader_csv = function() {
       if (!file.exists(self$path)) {
         return(NULL)
       }
-      utils::read.table(
+      args <- list(
         file = self$path,
-        header = TRUE,
-        sep = ",",
-        quote= "\"",
-        dec = ".",
-        na.strings = ""
+        sep = private$table_opts$sep,
+        dec = private$table_opts$dec,
+        quote = switch(
+          private$table_opts$qmethod,
+          escape = "\"'",
+          double = "\""
+        ),
+        header = TRUE
+      )
+      # this has to be 'missing' to work properly with read.table...
+      if (private$table_opts$row.names) {
+        args$row.names <- NULL
+      }
+      do.call(utils::read.table, args)
+    },
+    init = function() {
+      writeLines(
+        fuj::collapse(names(wolf_entry()), sep = private$table_opts$sep),
+        self$path
       )
     },
-    reader_tsv = function() {
-      if (!file.exists(self$path)) {
-        return(NULL)
-      }
-      utils::read.table(
-        file = self$path,
-        header = TRUE,
-        sep = "\t",
-        quote= "\"",
-        dec = ".",
-        na.strings = ""
-      )
+    bulk_writer = function(entries) {
+      entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
+      entries <- Reduce(rbind, entries)
+      private$writer(entries)
     }
+  )
+)
+
+CsvHandler <- R6::R6Class(
+  "WolfCsvHandler",
+  inherit = TableHandler,
+  public = list(
+    initialize = function(name, path = NULL, ...) {
+      table_opts <- list(sep = ",", qmethod = "double")
+      super$initialize(name, path, table_opts, ...)
+    }
+  ),
+  private = list(
+    path_ext = ".csv"
+  )
+)
+
+Csv2Handler <- R6::R6Class(
+  "WolfCsv2Handler",
+  inherit = TableHandler,
+  public = list(
+    initialize = function(name, path = NULL, ...) {
+      table_opts <- list(sep = ";", dec = ",", qmethod = "double")
+      super$initialize(name, path, table_opts, ...)
+    }
+  ),
+  private = list(
+    path_ext = ".csv2"
+  )
+)
+
+TsvHandler <- R6::R6Class(
+  "WolfTsvHandler",
+  inherit = TableHandler,
+  public = list(
+    initialize = function(name, path = NULL, ...) {
+      table_opts <- list(sep = "\t", qmethod = "double")
+      super$initialize(name, path, table_opts, ...)
+    }
+  ),
+  private = list(
+    path_ext = ".tsv"
+  )
+)
+
+Tsv2Handler <- R6::R6Class(
+  "WolfTsv2Handler",
+  inherit = TableHandler,
+  public = list(
+    initialize = function(name, path = NULL, ...) {
+      table_opts <- list(sep = "|", qmethod = "double")
+      super$initialize(name, path, table_opts, ...)
+    }
+  ),
+  private = list(
+    path_ext = ".tsv2"
   )
 )
 
@@ -335,6 +364,65 @@ DcfHandler <- R6::R6Class(
         return(NULL)
       }
       read.dcf(self$path)
+    }
+  )
+)
+
+#' JSON handler
+#'
+#' File is overwritten each time with only the most recent entry.  At finalize,
+#' all entries are written to the file. [wolf::JsonlHandler] is recommended for 
+#' continuous writing.
+#'  
+#' @export
+JsonHandler <- R6::R6Class(
+  "WolfJsonHandler",
+  inherit = FileHandler,
+  private = list(
+    path_ext = ".json",
+    writer = function(entry) {
+      jsonlite::write_json(as.list(entry), self$path, auto_unbox = TRUE)
+    },
+    bulk_writer = function(entries) {
+      jsonlite::write_json(lapply(entries, as.list), self$path, auto_unbox = TRUE)
+    },
+    finalize = function() {
+      if (self$active) {
+        browser()
+        # save over all entries
+        private$bulk_writer(private$entries)
+      }
+    },
+    reader = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+      jsonlite::fromJSON(json)
+    }
+  )
+)
+
+#' JSONL handler
+#' 
+#' Each entry is written as a single line of JSON.  This is recommended over the
+#' [wolf::JsonHandler] for continuous writing
+#' 
+#' @export
+JsonlHandler <- R6::R6Class(
+  "WolfJsonlHandler",
+  inherit = FileHandler,
+  private = list(
+    path_ext = ".jsonl",
+    writer = function(entry) {
+      json <- jsonlite::toJSON(as.list(entry), auto_unbox = TRUE)
+      cat(json, "\n", file = self$path, append = TRUE)
+    },
+    reader = function() {
+      if (!file.exists(self$path)) {
+        return(NULL)
+      }
+
+      lapply(readLines(self$path), jsonlite::fromJSON)
     }
   )
 )
