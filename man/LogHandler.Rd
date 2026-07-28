@@ -7,7 +7,7 @@
 Wolf default log handler
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{WolfLogHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfLogHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -21,7 +21,7 @@ Wolf default log handler
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="FileHandler" data-id="initialize"><a href='../../wolf/html/FileHandler.html#method-FileHandler-initialize'><code>FileHandler$initialize()</code></a></span></li>
+  <li><code>WolfFileHandler$initialize()</code></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}

@@ -7,7 +7,7 @@
 File connection handler
 }
 \section{Super class}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{FileHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler}
 }
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
@@ -19,8 +19,8 @@ File connection handler
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-FileHandler-initialize}{\code{FileHandler$new()}}
-    \item \href{#method-FileHandler-clone}{\code{FileHandler$clone()}}
+    \item \href{#method-WolfFileHandler-initialize}{\code{WolfFileHandler$new()}}
+    \item \href{#method-WolfFileHandler-clone}{\code{WolfFileHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -32,13 +32,13 @@ File connection handler
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-FileHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-FileHandler-initialize}{}}}
-\subsection{\code{FileHandler$new()}}{
+\if{html}{\out{<a id="method-WolfFileHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfFileHandler-initialize}{}}}
+\subsection{\code{WolfFileHandler$new()}}{
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{FileHandler$new(name, path = NULL, clear = FALSE, ...)}
+    \preformatted{WolfFileHandler$new(name, path = NULL, clear = FALSE, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -54,13 +54,13 @@ File connection handler
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-FileHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-FileHandler-clone}{}}}
-\subsection{\code{FileHandler$clone()}}{
+\if{html}{\out{<a id="method-WolfFileHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfFileHandler-clone}{}}}
+\subsection{\code{WolfFileHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{FileHandler$clone(deep = FALSE)}
+    \preformatted{WolfFileHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

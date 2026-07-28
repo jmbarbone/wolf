@@ -6,9 +6,6 @@
 \description{
 Write entries to a connection
 }
-\details{
-No default `private$writer()` methods applied
-}
 \section{Super class}{
 \code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfConnectionHandler}
 }
