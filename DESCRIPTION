@@ -27,9 +27,12 @@ Collate:
     'handlers-file.R'
     'handlers-json.R'
     'handlers-table.R'
+    'handlers-yaml.R'
     'md5.R'
     'utils.R'
     'wolf-package.R'
     'wolf.R'
 Suggests: 
-    jsonlite
+    jsonlite,
+    yaml,
+    yaml12

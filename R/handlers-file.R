@@ -17,7 +17,13 @@ FileHandler <- R6::R6Class(
     #' @param overwrite Overwrites the file if it exists
     #' @param cleanup Removes file when handler is finalized
     #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
-    initialize = function(name, path = NULL, overwrite = TRUE, cleanup = FALSE, ...) {
+    initialize = function(
+      name,
+      path = NULL,
+      overwrite = TRUE,
+      cleanup = FALSE,
+      ...
+    ) {
       super$initialize(name, ...)
       private$cleanup <- cleanup
       private$overwrite <- overwrite

@@ -9,7 +9,7 @@ md5 <- function(x) {
 
   con <- file(path, "wb", encoding = "UTF-8", raw = TRUE)
   on.exit(close(con), add = TRUE)
-  
+
   writeBin(s, con, useBytes = TRUE)
   tools::md5sum(path)
 }
