@@ -41,7 +41,7 @@ Writes entries to a connection
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfConnectionHandler$new(name, connection, ...)}
+    \preformatted{WolfConnectionHandler$new(name, connection = stdout(), ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

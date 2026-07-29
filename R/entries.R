@@ -3,6 +3,17 @@
 # TODO maybe add an option to only write on command or i
 #
 
+#' Wolf entry object
+#' 
+#' @param name The name of the entry
+#' @param message The message of the entry
+#' @param time The time of the entry
+#' @param type The type of the entry
+#' @param frame The frame of the entry
+#' @param expr The expression of the entry
+#' @param condition The condition of the entry
+#' 
+#' @export
 wolf_entry <- function(
   name = NULL,
   message = NULL,

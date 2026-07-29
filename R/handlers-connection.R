@@ -15,7 +15,7 @@ ConnectionHandler <- R6::R6Class(
     #' @param name Handler name
     #' @param connection Connection to write to
     #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
-    initialize = function(name, connection, ...) {
+    initialize = function(name, connection = stdout(), ...) {
       stopifnot(inherits(connection, "connection"))
       super$initialize(name, ...)
       self$connection <- connection

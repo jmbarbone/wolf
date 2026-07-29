@@ -24,3 +24,8 @@ internal_handler <- NULL
 .onUnload <- function(libname) {
   # internal$debug("wolf-internal logger shutting down")
 }
+
+.force_namespace_imports <- function() {
+  # okay, so like, R CMD check thinks I'm not using R6...
+  R6::R6Class
+}
