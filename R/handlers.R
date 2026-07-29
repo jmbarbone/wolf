@@ -18,6 +18,34 @@
 #' @export
 WolfHandler <- R6::R6Class(
   "WolfHandler",
+  active = list(
+    #' @field entries A list of [wolf::wolf_entry()] objects
+    entries = local({
+      function(value) {
+        if (!missing(value)) {
+          stop(
+            "cannot set 'entries' directly; this is a read-only field",
+            call. = FALSE
+          )
+        }
+
+        private$entries_
+      }
+    }),
+
+    #' @field queued A list of [wolf::wolf_entry()] objects that have not yet been written
+    queued = local({
+      function(value) {
+        if (!missing(value)) {
+          stop(
+            "cannot set 'queued' directly; this is a read-only field",
+            call. = FALSE
+          )
+        }
+        private$queue_
+      }
+    })
+  ),
   public = list(
     #' @field name Identifier
     name = NULL,
@@ -52,7 +80,7 @@ WolfHandler <- R6::R6Class(
         private$add_queue(entry)
       } else {
         private$add_entry(entry)
-        self$write(entry)
+        self$single_writer(entry)
       }
 
       self
@@ -60,10 +88,11 @@ WolfHandler <- R6::R6Class(
 
     #' @param entry A [wolf::wolf_entry()] object
     #' @description Calls the private writer method.  When `sel$delay = FALSE`,
-    #' and there are entries in `self$queued`, each file is written 
+    #' and there are entries in `self$queued`, each file is written.  To control
+    #' _how_ the entries are written, modify the `$writer()` method
     write = function(entry) {
       if (!private$initialized) {
-        private$init()
+        private$init_writer()
         private$initialized <- TRUE
       }
 
@@ -71,52 +100,69 @@ WolfHandler <- R6::R6Class(
         private$write_delayed()
       }
 
-      private$writer(entry)
+      self$single_writer(entry)
     },
 
-    #' @description Read entries from the handler
+    #' @param entry A [wolf::wolf_entry()] object
+    #' @description Writes a single `entry` object.  This is the default writer
+    #' method and can be modified to change how entries are written. 
+    single_writer = function(entry) {
+      NULL
+    },
+
+    #' @param entries A list of [wolf::wolf_entry()] objects
+    #' @description A special writer method to handle writing multiple entries 
+    #' at once. 
+    bulk_writer = function(entries) {
+      for (entry in entries) {
+        self$single_writer(entry)
+      }
+    },
+
+    #' @description A one-time setup method for the writer.  This may be
+    #' necessary for certain handlers, like [wolf::TableHandler] which sets up
+    #' the column names in a file before writing
+    setup_writer = function() {
+      NULL
+    },
+
+    #' @description Read entries
     read = function() {
-      private$reader()
+      self$entries
     },
     
-    #' @description Calls the private finalize() method
+    #' @description Calls the private `$finalize()` method
     close = function() {
       self$delay <- FALSE
+      private$write_delayed()
       private$finalize()
     }
   ),
   private = list(
     initialized = FALSE,
-    entries = wolf_entry(),
-    queue = wolf_entries(),
+    entries_ = NULL,
+    queue_ = NULL,
+
     add_entry = function(entry) {
-      private$entries <- do.call(wolf_entries,  c(private$entries, list(entry)))
-    },
-    add_queue = function(entry) {
-      private$queue <- do.call(wolf_entries,  c(private$queue, list(entry)))
-    },
-    write_delayed = function() {
-      if (is.function(private$bulk_writer)) {
-        private$bulk_writer(private$queue)
-        private$queue <- wolf_entries()
-      } else {
-        for (q in private$queue) {
-          private$writer(q)
-          private$queue <- private$queue[-1L]
-        }
-      }
+      private$entries_ <- c(private$entries_, list(entry))
     },
 
+    add_queue = function(entry) {
+      private$queue_ <- c(private$queue_, list(entry))
+    },
+
+    write_delayed = function() {
+      if (!is.null(private$queue_)) {
+        private$bulk_writer(private$queue_)
+        private$queue_ <- NULL
+      }
+    },
     # modifiable
     finalize = function() {
       if (self$active) {
         private$write_delayed()
       }
-    },
-    writer = function(entry) NULL,
-    queued_writer = NULL,
-    reader = function() private$entries,
-    init = function() NULL
+    }
   )
 )
 
@@ -129,25 +175,42 @@ ConnectionHandler <- R6::R6Class(
   "WolfConnectionHandler",
   inherit = WolfHandler,
   public = list(
-    #' @field description The file connection description
-    description = ""
+    #' @field connection The file connection
+    connection = NULL,
+
+    #' @description Initialized the handler
+    #' @param name Handler name
+    #' @param connection Connection to write to
+    #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
+    initialize = function(name, connection, ...) {
+      stopifnot(inherits(connection, "connection"))
+      super$initialize(name, ...)
+      self$connection <- connection
+    },
+
+    #' @param entry A [wolf::wolf_entry()] object
+    single_writer = function(entry) {
+      cat(format(entry), file = self$connection)
+    },
+
+    #' @param entries A list of [wolf::wolf_entry()] objects
+    bulk_writer = function(entries) {
+      cat(fuj::vap_chr(entries, format), sep = "\n", file = self$connection)
+    }
   ),
   private = list(
-    connection = NULL,
     finalize = function() {
       if (self$active) {
         private$write_delayed()
       }
+      
       if (
-        inherits(private$connection, "connection") &&
-          isOpen(connection) &&
-          !connection %in% list(stdout(), stderr())
+        inherits(self$connection, "connection") &&
+          isOpen(self$connection) &&
+          !self$connection %in% list(stdout(), stderr())
       ) {
-        close(private$connection)
+        close(self$connection)
       }
-    },
-    writer = function(entry) {
-      cat(format(entry), file = self$description)
     }
   )
 )
@@ -167,29 +230,25 @@ FileHandler <- R6::R6Class(
     #' @param path Path name.  When `NULL` resolves to a default name
     #' @param clear Removes file (if already exists)
     #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
-    initialize = function(
-      name, 
-      path = NULL,
-      clear = FALSE,
-      ...
-    ) {
+    initialize = function(name, path = NULL, clear = FALSE, ...) {
       super$initialize(name, ...)
-      path <- path %||% sprintf(".wolf-log-handler-%s%s", self$name, private$path_ext)
+      path <- 
+        path %||% 
+        sprintf(".wolf-log-handler-%s%s", self$name, private$path_ext)
       self$path <- normalizePath(path, "/", mustWork = FALSE)
       if (clear && file.exists(self$path)) {
         file.remove(self$path)
       }
+    },
+
+    #' @description Read the log file
+    read = function() {
+      if (file.exists(self$path)) {
+        readLines(self$path)
+      }
     }
   ),
-  private = list(
-    reader = function() {
-      if (!file.exists(self$path)) {
-        return(NULL)
-      }
-      readLines(self$path)
-    },
-    path_ext = ""
-  )
+  private = list(path_ext = "")
 )
 
 #' Wolf default log handler
@@ -198,9 +257,10 @@ FileHandler <- R6::R6Class(
 LogHandler <- R6::R6Class(
   "WolfLogHandler",
   inherit = FileHandler,
-  private = list(
-    path_ext = ".log",
-    writer = function(entry) {
+  public = list(
+    #' @description Writes a single [format()]'ed [wolf::wolf_entry()] object to
+    #' the log file
+    single_writer = function(entry) {
       cat(
         trimws(format(entry)),
         "\n",
@@ -209,13 +269,22 @@ LogHandler <- R6::R6Class(
         append = TRUE
       )
     }
-  )
+  ),
+  private = list(path_ext = ".log")
 )
 
+#' Wolf table handler
+#' 
+#' @export
 TableHandler <- R6::R6Class(
   "WolfTableHandler",
   inherit = FileHandler,
   public = list(
+    #' @description Initializes the handler
+    #' @param name Handler name
+    #' @param path Path name.  When `NULL` resolves to a default name
+    #' @param table_opts Options passed to [utils::write.table()]
+    #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
     initialize = function(
       name,
       path = NULL,
@@ -225,24 +294,12 @@ TableHandler <- R6::R6Class(
       super$initialize(name, path, ...)
       # TODO make safer
       private$table_opts <- modifyList(private$table_opts, table_opts)
-    }
-  ),
-  private = list(
-    path_ext = ".txt",
-    table_opts = list(
-      # x = ,
-      # file = "",
-      # append = FALSE,
-      quote = TRUE, 
-      sep = " ",
-      eol = "\n", 
-      na = "", 
-      dec = ".", 
-      row.names = FALSE,
-      qmethod = "escape", 
-      fileEncoding = "UTF-8"
-    ),
-    writer = function(entry) {
+    },
+
+    #' @description Writes a single [wolf::wolf_entry()] object to the log file.
+    #' This will append the `entry` as a new row
+    #' @param entry A [wolf::wolf_entry()] object
+    single_writer = function(entry) {
       utils::write.table(
         x = as.list(entry),
         file = self$path,
@@ -254,7 +311,26 @@ TableHandler <- R6::R6Class(
         append = TRUE
       )
     },
-    reader = function() {
+
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' This will append the `entries` as new rows
+    #' @param entries A list of [wolf::wolf_entry()] objects
+    bulk_writer = function(entries) {
+      entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
+      entries <- Reduce(rbind, entries)
+      self$single_writer(entries)
+    },
+
+    #' @description Initializes the log file with column names
+    init_writer = function() {
+      writeLines(
+        fuj::collapse(names(wolf_entry()), sep = private$table_opts$sep),
+        self$path
+      )
+    },
+
+    #' @description Reads the log file into a [base::data.frame] object
+    read = function() {
       if (!file.exists(self$path)) {
         return(NULL)
       }
@@ -274,82 +350,110 @@ TableHandler <- R6::R6Class(
         args$row.names <- NULL
       }
       do.call(utils::read.table, args)
-    },
-    init = function() {
-      writeLines(
-        fuj::collapse(names(wolf_entry()), sep = private$table_opts$sep),
-        self$path
-      )
-    },
-    bulk_writer = function(entries) {
-      entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
-      entries <- Reduce(rbind, entries)
-      private$writer(entries)
     }
+  ),
+  private = list(
+    path_ext = ".txt",
+    table_opts = list(
+      # x = ,
+      # file = "",
+      # append = FALSE,
+      quote = TRUE, 
+      sep = " ",
+      eol = "\n", 
+      na = "", 
+      dec = ".", 
+      row.names = FALSE,
+      qmethod = "escape", 
+      fileEncoding = "UTF-8"
+    )
   )
 )
 
+modify_opts <- function(...) {
+  new <- list(...)
+  old <- TableHandler$private_fields$table_opts
+  stopifnot(names(new) %in% names(old))
+  modifyList(old, new)
+}
+
+#' Wolf CSV handler
+#' 
+#' @export
 CsvHandler <- R6::R6Class(
   "WolfCsvHandler",
   inherit = TableHandler,
   public = list(
+    #' @description Initializes the handler
+    #' @param name Handler name
+    #' @param path Path name.  When `NULL` resolves to a default name
+    #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
     initialize = function(name, path = NULL, ...) {
       table_opts <- list(sep = ",", qmethod = "double")
       super$initialize(name, path, table_opts, ...)
     }
   ),
   private = list(
-    path_ext = ".csv"
+    path_ext = ".csv",
+    table_opts = modify_opts(
+      sep = ",",
+      qmethod = "double"
+    )
   )
 )
 
+#' Wolf CSV2 handler
+#' 
+#' Writes entries to a CSV2 file (semicolon separated, comma decimal)
+#' 
+#' @export
 Csv2Handler <- R6::R6Class(
   "WolfCsv2Handler",
   inherit = TableHandler,
-  public = list(
-    initialize = function(name, path = NULL, ...) {
-      table_opts <- list(sep = ";", dec = ",", qmethod = "double")
-      super$initialize(name, path, table_opts, ...)
-    }
-  ),
   private = list(
-    path_ext = ".csv2"
+    path_ext = ".csv2",
+    table_opts = modify_opts(
+      sep = ";", 
+      dec = ",", 
+      qmethod = "double"
+    )
   )
 )
 
+#' Wolf TSV handler
+#' 
+#' @export
 TsvHandler <- R6::R6Class(
   "WolfTsvHandler",
   inherit = TableHandler,
-  public = list(
-    initialize = function(name, path = NULL, ...) {
-      table_opts <- list(sep = "\t", qmethod = "double")
-      super$initialize(name, path, table_opts, ...)
-    }
-  ),
   private = list(
-    path_ext = ".tsv"
+    path_ext = ".tsv",
+    table_opts = modify_opts(
+      sep = "\t",
+      qmethod = "double"
+    )
   )
 )
 
 Tsv2Handler <- R6::R6Class(
   "WolfTsv2Handler",
   inherit = TableHandler,
-  public = list(
-    initialize = function(name, path = NULL, ...) {
-      table_opts <- list(sep = "|", qmethod = "double")
-      super$initialize(name, path, table_opts, ...)
-    }
-  ),
   private = list(
-    path_ext = ".tsv2"
+    path_ext = ".tsv2",
+    table_opts = modify_opts(
+      sep = "|",
+      qmethod = "double"
+    )
   )
 )
 
 DcfHandler <- R6::R6Class(
   "WolfDcfHandler",
   inherit = FileHandler,
-  private = list(
-    writer = function(entry) {
+  public = list(
+    #' @description Writes a single [wolf::wolf_entry()] object to
+    #' the log file
+    single_writer = function(entry) {
       write.dcf(
         as.list(entry),
         file = self$path,
@@ -359,13 +463,21 @@ DcfHandler <- R6::R6Class(
       )
       cat("\n", file = self$path, append = TRUE)
     },
-    reader = function() {
-      if (!file.exists(self$path)) {
-        return(NULL)
+
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @param entries A list of [wolf::wolf_entry()] objects
+    bulk_writer = function(entries) {
+      self$single_writer(lapply(entries, as.list))
+    },
+
+    #' @description Reads the log file into a [base::matrix] object
+    read = function() {
+      if (file.exists(self$path)) {
+        read.dcf(self$path)
       }
-      read.dcf(self$path)
     }
-  )
+  ),
+  private = list(path_ext = ".dcf")
 )
 
 #' JSON handler
@@ -378,26 +490,36 @@ DcfHandler <- R6::R6Class(
 JsonHandler <- R6::R6Class(
   "WolfJsonHandler",
   inherit = FileHandler,
-  private = list(
-    path_ext = ".json",
-    writer = function(entry) {
+  public = list(
+    #' @description Writes a single [wolf::wolf_entry()] object to
+    #' the log file
+    #' @param entry A [wolf::wolf_entry()] object
+    single_writer = function(entry) {
       jsonlite::write_json(as.list(entry), self$path, auto_unbox = TRUE)
     },
+
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
-      jsonlite::write_json(lapply(entries, as.list), self$path, auto_unbox = TRUE)
+      self$single_writer(lapply(entries, as.list))
     },
-    finalize = function() {
-      if (self$active) {
-        browser()
-        # save over all entries
-        private$bulk_writer(private$entries)
-      }
-    },
+
+    #' @description Reads the log file into a [base::list] object
+    #' @return A list of [wolf::wolf_entry()] objects
     reader = function() {
       if (!file.exists(self$path)) {
         return(NULL)
       }
-      jsonlite::fromJSON(json)
+      jsonlite::fromJSON(self$path)
+    }
+  ),
+  private = list(
+    path_ext = ".json",
+    finalize = function() {
+      if (self$active) {
+        # save over all entries
+        private$bulk_writer(private$entries)
+      }
     }
   )
 )
@@ -411,12 +533,25 @@ JsonHandler <- R6::R6Class(
 JsonlHandler <- R6::R6Class(
   "WolfJsonlHandler",
   inherit = FileHandler,
-  private = list(
-    path_ext = ".jsonl",
-    writer = function(entry) {
+  public = list(
+    #' @description Writes a single [wolf::wolf_entry()] object to
+    #' the log file
+    #' @param entry A [wolf::wolf_entry()] object
+    single_writer = function(entry) {
       json <- jsonlite::toJSON(as.list(entry), auto_unbox = TRUE)
       cat(json, "\n", file = self$path, append = TRUE)
     },
+
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @param entries A list of [wolf::wolf_entry()] objects
+    bulk_writer = function(entries) {
+      for (entry in entries) {
+        self$single_writer(entry)
+      }
+    },
+
+    #' @description Reads the log file into a [base::list] object
+    #' @return A list of [wolf::wolf_entry()] objects
     reader = function() {
       if (!file.exists(self$path)) {
         return(NULL)
@@ -424,7 +559,8 @@ JsonlHandler <- R6::R6Class(
 
       lapply(readLines(self$path), jsonlite::fromJSON)
     }
-  )
+  ),
+  private = list(path_ext = ".jsonl")
 )
 
 # Not meant to be used externally
@@ -444,8 +580,8 @@ InternalHandler <- R6::R6Class(
     retain = NA,
     finalize = function() {
       if (!private$retain && file.exists(self$path)) {
-          file.remove(self$path)
-        }
+        file.remove(self$path)
+      }
     }
   )
 )
