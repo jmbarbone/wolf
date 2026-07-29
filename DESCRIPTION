@@ -18,3 +18,13 @@ Imports:
     R6 (>= 2.6.1),
     utils
 Config/roxygen2/version: 8.0.0
+Collate: 
+    'entries.R'
+    'handlers.R'
+    'handlers-connection.R'
+    'handlers-file.R'
+    'handlers-json.R'
+    'handlers-table.R'
+    'utils.R'
+    'wolf-package.R'
+    'wolf.R'

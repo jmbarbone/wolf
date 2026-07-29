@@ -4,9 +4,7 @@
 \alias{WolfHandler}
 \title{WolfHandler}
 \description{
-Public methods need to be called directly through the [wolf::Wolf] class
-
-Public fields can include different settings
+Base [R6::R6Class()] for all handlers.
 }
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
@@ -129,7 +127,7 @@ method and can be modified to change how entries are written.
 \if{html}{\out{<a id="method-WolfHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfHandler-bulk_writer}{}}}
 \subsection{\code{WolfHandler$bulk_writer()}}{
-  A special writer method to handle writing multiple entries 
+  A special writer method to handle writing multiple entries
 at once.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}

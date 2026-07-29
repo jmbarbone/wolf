@@ -17,10 +17,10 @@ internal_handler <- NULL
   options(op.wolf[names(op.wolf) %notin% names(options())])
   internal <<- wolf(name = "wolf-internal", level = "debug")
   internal_handler <<- InternalHandler$new()
-  internal$add_handler(internal_handler)
-  internal$debug("wolf-internal logger initialized")
+  # internal$add_handler(internal_handler)
+  # internal$debug("wolf-internal logger initialized")
 }
 
 .onUnload <- function(libname) {
-  internal$debug("wolf-internal logger shutting down")
+  # internal$debug("wolf-internal logger shutting down")
 }
