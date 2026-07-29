@@ -169,51 +169,6 @@ WolfHandler <- R6::R6Class(
 )
 
 
-# Not meant to be used externally
-InternalHandler <- R6::R6Class(
-  "WolfInternalHandler",
-  inherit = WolfHandler,
-  public = list(
-    initialize = function(name = "wolf-internal", ...) {
-      dir <- tools::R_user_dir("wolf", "cache")
-      dir.create(dir, showWarnings = FALSE, recursive = TRUE)
-      path <- file.path(dir, sprintf("%s.log", name))
-      private$retain <- isTRUE(getOption("wolf.retain_internal_log", FALSE))
-      super$initialize(name, ...)
-    },
-
-    init_writer = function() {
-      if (!private$retain || !file.exists(self$path)) {
-        file.create(self$path)
-      }
-    },
-    single_writer = function(entry) {
-      print(self$path)
-      cat(
-        format(entry, "full"),
-        "\n",
-        sep = "",
-        file = self$path,
-        append = TRUE
-      )
-    },
-
-    read = function() {
-      if (file.exists(self$path)) {
-        readLines(self$path)
-      }
-    }
-  ),
-  private = list(
-    retain = NA,
-    finalize = function() {
-      if (!private$retain && file.exists(self$path)) {
-        file.remove(self$path)
-      }
-    }
-  )
-)
-
 #' Wolf default handlers
 #'
 #' @param name Name of the handler.

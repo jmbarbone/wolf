@@ -15,18 +15,17 @@ Each entry is written as a single line of JSON.  This is recommended over the
   \itemize{
     \item \href{#method-WolfJsonlHandler-single_writer}{\code{WolfJsonlHandler$single_writer()}}
     \item \href{#method-WolfJsonlHandler-bulk_writer}{\code{WolfJsonlHandler$bulk_writer()}}
-    \item \href{#method-WolfJsonlHandler-reader}{\code{WolfJsonlHandler$reader()}}
+    \item \href{#method-WolfJsonlHandler-read}{\code{WolfJsonlHandler$read()}}
     \item \href{#method-WolfJsonlHandler-clone}{\code{WolfJsonlHandler$clone()}}
   }
 }
-\if{html}{\out{<details><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><code>WolfFileHandler$initialize()</code></li>
-  <li><code>WolfFileHandler$read()</code></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
@@ -69,13 +68,13 @@ the log file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfJsonlHandler-reader"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfJsonlHandler-reader}{}}}
-\subsection{\code{WolfJsonlHandler$reader()}}{
+\if{html}{\out{<a id="method-WolfJsonlHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfJsonlHandler-read}{}}}
+\subsection{\code{WolfJsonlHandler$read()}}{
   Reads the log file into a [base::list] object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfJsonlHandler$reader()}
+    \preformatted{WolfJsonlHandler$read()}
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{

@@ -20,17 +20,17 @@ Writes to a flat file
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-WolfFileHandler-initialize}{\code{WolfFileHandler$new()}}
+    \item \href{#method-WolfFileHandler-single_writer}{\code{WolfFileHandler$single_writer()}}
     \item \href{#method-WolfFileHandler-read}{\code{WolfFileHandler$read()}}
     \item \href{#method-WolfFileHandler-clone}{\code{WolfFileHandler$clone()}}
   }
 }
-\if{html}{\out{<details><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="bulk_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-bulk_writer'><code>WolfHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="single_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-single_writer'><code>WolfHandler$single_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
 </ul>
 </details>}}
@@ -41,7 +41,7 @@ Writes to a flat file
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfFileHandler$new(name, path = NULL, clear = FALSE, ...)}
+    \preformatted{WolfFileHandler$new(name, path = NULL, overwrite = TRUE, cleanup = FALSE, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -49,8 +49,28 @@ Writes to a flat file
     \describe{
       \item{\code{name}}{Handler name}
       \item{\code{path}}{Path name.  When `NULL` resolves to a default name}
-      \item{\code{clear}}{Removes file (if already exists)}
+      \item{\code{overwrite}}{Overwrites the file if it exists}
+      \item{\code{cleanup}}{Removes file when handler is finalized}
       \item{\code{...}}{Additional arguments passed to `WolfHandler$initialize(...)`}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfFileHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfFileHandler-single_writer}{}}}
+\subsection{\code{WolfFileHandler$single_writer()}}{
+  Writes a single [wolf::wolf_entry()] object to the log file.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfFileHandler$single_writer(entry)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entry}}{A [wolf::wolf_entry()] object}
     }
     \if{html}{\out{</div>}}
   }

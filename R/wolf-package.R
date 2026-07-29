@@ -15,10 +15,16 @@ internal_handler <- NULL
 
 .onLoad <- function(libname, pkgname) {
   options(op.wolf[names(op.wolf) %notin% names(options())])
-  # internal <<- wolf(name = "wolf-internal", level = "debug")
-  # internal_handler <<- InternalHandler$new()
-  # internal$add_handler(internal_handler)
-  # internal$debug("wolf-internal logger initialized")
+  internal <<- wolf(name = "wolf-internal", level = "debug")
+  retain_internal_log <- getOption("wolf.retain_internal_log", FALSE)
+  internal_handler <<- LogHandler$new(
+    name = "wolf-internal",
+    path = file.path(tools::R_user_dir("wolf", "cache"), "wolf-internal.log"),
+    overwrite = retain_internal_log,
+    cleanup = !retain_internal_log
+  )
+  internal$add_handler(internal_handler)
+  internal$debug("wolf-internal logger initialized")
 }
 
 .onUnload <- function(libname) {

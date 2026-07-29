@@ -14,17 +14,33 @@ FileHandler <- R6::R6Class(
     #' @description Initialized the handler
     #' @param name Handler name
     #' @param path Path name.  When `NULL` resolves to a default name
-    #' @param clear Removes file (if already exists)
+    #' @param overwrite Overwrites the file if it exists
+    #' @param cleanup Removes file when handler is finalized
     #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
-    initialize = function(name, path = NULL, clear = FALSE, ...) {
+    initialize = function(name, path = NULL, overwrite = TRUE, cleanup = FALSE, ...) {
       super$initialize(name, ...)
+      private$cleanup <- cleanup
+      private$overwrite <- overwrite
       path <-
         path %||%
         sprintf(".wolf-log-handler-%s%s", self$name, private$path_ext)
       self$path <- normalizePath(path, "/", mustWork = FALSE)
-      if (clear && file.exists(self$path)) {
+      dir.create(dirname(self$path), recursive = TRUE, showWarnings = FALSE)
+      if (private$overwrite && file.exists(self$path)) {
         file.remove(self$path)
       }
+    },
+
+    #' @description Writes a single [wolf::wolf_entry()] object to the log file.
+    #' @param entry A [wolf::wolf_entry()] object
+    single_writer = function(entry) {
+      cat(
+        format(entry),
+        "\n",
+        sep = "",
+        file = self$path,
+        append = TRUE
+      )
     },
 
     #' @description Read the log file
@@ -34,7 +50,20 @@ FileHandler <- R6::R6Class(
       }
     }
   ),
-  private = list(path_ext = "")
+  private = list(
+    path_ext = "",
+    cleanup = FALSE,
+    overwrite = TRUE,
+    finalize = function() {
+      if (self$active) {
+        private$write_delayed()
+      }
+
+      if (private$cleanup && file.exists(self$path)) {
+        file.remove(self$path)
+      }
+    }
+  )
 )
 
 #' Wolf default log handler
@@ -48,7 +77,7 @@ LogHandler <- R6::R6Class(
     #' the log file
     single_writer = function(entry) {
       cat(
-        trimws(format(entry)),
+        trimws(format(entry, "full")),
         "\n",
         sep = "",
         file = self$path,

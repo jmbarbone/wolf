@@ -72,7 +72,7 @@ JsonlHandler <- R6::R6Class(
 
     #' @description Reads the log file into a [base::list] object
     #' @return A list of [wolf::wolf_entry()] objects
-    reader = function() {
+    read = function() {
       if (!file.exists(self$path)) {
         return(NULL)
       }
