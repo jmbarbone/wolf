@@ -15,6 +15,8 @@ Encoding: UTF-8
 LazyData: true
 Language: en-US
 Imports: 
+    cli,
+    fuj,
     R6 (>= 2.6.1),
     utils
 Config/roxygen2/version: 8.0.0
@@ -25,6 +27,9 @@ Collate:
     'handlers-file.R'
     'handlers-json.R'
     'handlers-table.R'
+    'md5.R'
     'utils.R'
     'wolf-package.R'
     'wolf.R'
+Suggests: 
+    jsonlite

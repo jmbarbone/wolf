@@ -3,12 +3,6 @@
 # TODO maybe add an option to only write on command or i
 #
 
-wolf_entries <- function(...) {
-  x <- list(...)
-  class(x) <- c("wolf_entries", "list")
-  x
-}
-
 wolf_entry <- function(
   name = NULL,
   message = NULL,
@@ -28,17 +22,9 @@ wolf_entry <- function(
     expr = expr,
     condition = condition
   )
-  x$id <- mark::md5(x)
+  x$id <- md5(x)
   class(x) <- c("wolf_entry", "list")
   x
-}
-
-#' @export
-print.wolf_entries <- function(x, method = c("default", "compact"), ...) {
-  for (i in x) {
-    print(i, method = method)
-  }
-  invisible(x)
 }
 
 #' @export

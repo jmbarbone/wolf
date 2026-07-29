@@ -16,18 +16,17 @@ continuous writing.
   \itemize{
     \item \href{#method-WolfJsonHandler-single_writer}{\code{WolfJsonHandler$single_writer()}}
     \item \href{#method-WolfJsonHandler-bulk_writer}{\code{WolfJsonHandler$bulk_writer()}}
-    \item \href{#method-WolfJsonHandler-reader}{\code{WolfJsonHandler$reader()}}
+    \item \href{#method-WolfJsonHandler-read}{\code{WolfJsonHandler$read()}}
     \item \href{#method-WolfJsonHandler-clone}{\code{WolfJsonHandler$clone()}}
   }
 }
-\if{html}{\out{<details><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><code>WolfFileHandler$initialize()</code></li>
-  <li><code>WolfFileHandler$read()</code></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
@@ -70,13 +69,13 @@ the log file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfJsonHandler-reader"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfJsonHandler-reader}{}}}
-\subsection{\code{WolfJsonHandler$reader()}}{
+\if{html}{\out{<a id="method-WolfJsonHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfJsonHandler-read}{}}}
+\subsection{\code{WolfJsonHandler$read()}}{
   Reads the log file into a [base::list] object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfJsonHandler$reader()}
+    \preformatted{WolfJsonHandler$read()}
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{

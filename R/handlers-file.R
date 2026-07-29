@@ -1,5 +1,5 @@
 #' @title Wolf File handler
-#' 
+#'
 #' @description Writes to a flat file
 #'
 #' @include handlers.R
@@ -60,7 +60,7 @@ LogHandler <- R6::R6Class(
 )
 
 #' Wolf DCF handler
-#' 
+#'
 #' @export
 DcfHandler <- R6::R6Class(
   "WolfDcfHandler",

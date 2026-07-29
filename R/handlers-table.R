@@ -1,15 +1,15 @@
 #' Wolf table handler
-#' 
+#'
 #' Write entries to a table file (CSV, TSV, etc.)
-#' 
+#'
 #' @description
 #' - [TableHandler] writes entries to a table file (space separated, dot decimal); default
 #' - [CsvHandler] writes entries to a CSV file (comma separated, dot decimal)
 #' - [Csv2Handler] writes entries to a CSV2 file (semicolon separated, comma decimal)
 #' - [TsvHandler] writes entries to a TSV file (tab separated, dot decimal)
 #' - [Tsv2Handler] writes entries to a TSV2 file (pipe separated, dot decimal)
-#' 
-#' 
+#'
+#'
 #' @md
 #' @export
 TableHandler <- R6::R6Class(
@@ -110,7 +110,7 @@ modify_opts <- function(...) {
   new <- list(...)
   old <- TableHandler$private_fields$table_opts
   stopifnot(names(new) %in% names(old))
-  modifyList(old, new)
+  utils::modifyList(old, new)
 }
 
 #' @export

@@ -12,7 +12,7 @@
 #' WolfHandler
 #'
 #' Base [R6::R6Class()] for all handlers.
-#' 
+#'
 #' @export
 WolfHandler <- R6::R6Class(
   "WolfHandler",
@@ -199,7 +199,9 @@ InternalHandler <- R6::R6Class(
     },
 
     read = function() {
-      readLines(self$path)
+      if (file.exists(self$path)) {
+        readLines(self$path)
+      }
     }
   ),
   private = list(

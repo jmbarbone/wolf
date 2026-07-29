@@ -15,8 +15,8 @@ internal_handler <- NULL
 
 .onLoad <- function(libname, pkgname) {
   options(op.wolf[names(op.wolf) %notin% names(options())])
-  internal <<- wolf(name = "wolf-internal", level = "debug")
-  internal_handler <<- InternalHandler$new()
+  # internal <<- wolf(name = "wolf-internal", level = "debug")
+  # internal_handler <<- InternalHandler$new()
   # internal$add_handler(internal_handler)
   # internal$debug("wolf-internal logger initialized")
 }

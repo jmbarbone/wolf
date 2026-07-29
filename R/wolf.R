@@ -270,10 +270,7 @@ Wolf <- R6::R6Class(
     },
 
     append_entries = function(entry) {
-      private$entries_ <- do.call(
-        wolf_entries,
-        c(private$entries_, list(entry))
-      )
+      private$entries_ <- c(private$entries_, list(entry))
     },
 
     append_handlers = function(new) {

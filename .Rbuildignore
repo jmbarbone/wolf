@@ -4,3 +4,4 @@
 ^.*\.log$
 ^\.positai$
 ^\.claude$
+^\.vscode$

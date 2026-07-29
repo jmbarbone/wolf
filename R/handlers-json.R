@@ -24,11 +24,10 @@ JsonHandler <- R6::R6Class(
 
     #' @description Reads the log file into a [base::list] object
     #' @return A list of [wolf::wolf_entry()] objects
-    reader = function() {
-      if (!file.exists(self$path)) {
-        return(NULL)
+    read = function() {
+      if (file.exists(self$path)) {
+        jsonlite::fromJSON(self$path)
       }
-      jsonlite::fromJSON(self$path)
     }
   ),
   private = list(
