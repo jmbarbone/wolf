@@ -48,7 +48,10 @@ Wolf <- R6::R6Class(
           return(..level)
         }
 
-        value <- fuj::match_arg(value, c("debug", "info", "warn", "error", "none"))
+        value <- fuj::match_arg(
+          value,
+          c("debug", "info", "warn", "error", "none")
+        )
 
         private$levels <- switch(
           value,
@@ -133,7 +136,7 @@ Wolf <- R6::R6Class(
         invokeRestart(
           "implement_wolf_handlers",
           tryCatch(
-            eval.parent(expr), 
+            eval.parent(expr),
             condition = function(cnd) {
               cnd$call <- NULL
               list(
@@ -165,11 +168,11 @@ Wolf <- R6::R6Class(
             }
             return(handler)
           }
-          
+
           if (!nzchar(name)) {
             stop(fuj::input_error("cannot add unnamed R6 handler"))
           }
-          
+
           if (inherits(handler, "R6ClassGenerator")) {
             handler$new(name = name)
           } else if (is.character(handler)) {
@@ -256,7 +259,7 @@ Wolf <- R6::R6Class(
         frame = spec$frame,
         expr = spec$expr
       )
-      
+
       private$append_entries(entry)
 
       for (handler in self$handlers) {
@@ -267,14 +270,19 @@ Wolf <- R6::R6Class(
     },
 
     append_entries = function(entry) {
-      private$entries_ <- do.call(wolf_entries, c(private$entries_, list(entry)))
+      private$entries_ <- do.call(
+        wolf_entries,
+        c(private$entries_, list(entry))
+      )
     },
 
     append_handlers = function(new) {
       # silently removes duplicate handlers
       private$handlers_ <- c(new, private$handlers_)
       dupes <- duplicated(names(private$handlers_), fromLast = TRUE)
-      private$handlers_ <- private$handlers_[!duplicated(names(private$handlers_), fromLast = TRUE)]
+      private$handlers_ <- private$handlers_[
+        !duplicated(names(private$handlers_), fromLast = TRUE)
+      ]
     },
 
     signal = function(

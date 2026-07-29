@@ -1,5 +1,5 @@
 # write(entry) should then handle everything within the entry
-# close() should be used to handle anything 
+# close() should be used to handle anything
 
 # new_handler <- function(name, write = NULL, close = NULL, ...) {
 #   public <- list(write = write, close = close)
@@ -10,11 +10,11 @@
 # public methods should not be modified
 
 #' WolfHandler
-#' 
+#'
 #' Public methods need to be called directly through the [wolf::Wolf] class
-#' 
+#'
 #' Public fields can include different settings
-#' 
+#'
 #' @export
 WolfHandler <- R6::R6Class(
   "WolfHandler",
@@ -105,14 +105,14 @@ WolfHandler <- R6::R6Class(
 
     #' @param entry A [wolf::wolf_entry()] object
     #' @description Writes a single `entry` object.  This is the default writer
-    #' method and can be modified to change how entries are written. 
+    #' method and can be modified to change how entries are written.
     single_writer = function(entry) {
       NULL
     },
 
     #' @param entries A list of [wolf::wolf_entry()] objects
-    #' @description A special writer method to handle writing multiple entries 
-    #' at once. 
+    #' @description A special writer method to handle writing multiple entries
+    #' at once.
     bulk_writer = function(entries) {
       for (entry in entries) {
         self$single_writer(entry)
@@ -130,7 +130,7 @@ WolfHandler <- R6::R6Class(
     read = function() {
       self$entries
     },
-    
+
     #' @description Calls the private `$finalize()` method
     close = function() {
       self$delay <- FALSE
@@ -167,9 +167,9 @@ WolfHandler <- R6::R6Class(
 )
 
 #' Connection handler
-#' 
+#'
 #' Write entries to a connection
-#' 
+#'
 #' @export
 ConnectionHandler <- R6::R6Class(
   "WolfConnectionHandler",
@@ -203,7 +203,7 @@ ConnectionHandler <- R6::R6Class(
       if (self$active) {
         private$write_delayed()
       }
-      
+
       if (
         inherits(self$connection, "connection") &&
           isOpen(self$connection) &&
@@ -216,7 +216,7 @@ ConnectionHandler <- R6::R6Class(
 )
 
 #' File connection handler
-#' 
+#'
 #' @export
 FileHandler <- R6::R6Class(
   "WolfFileHandler",
@@ -232,8 +232,8 @@ FileHandler <- R6::R6Class(
     #' @param ... Additional arguments passed to `WolfHandler$initialize(...)`
     initialize = function(name, path = NULL, clear = FALSE, ...) {
       super$initialize(name, ...)
-      path <- 
-        path %||% 
+      path <-
+        path %||%
         sprintf(".wolf-log-handler-%s%s", self$name, private$path_ext)
       self$path <- normalizePath(path, "/", mustWork = FALSE)
       if (clear && file.exists(self$path)) {
@@ -252,7 +252,7 @@ FileHandler <- R6::R6Class(
 )
 
 #' Wolf default log handler
-#' 
+#'
 #' @export
 LogHandler <- R6::R6Class(
   "WolfLogHandler",
@@ -274,7 +274,7 @@ LogHandler <- R6::R6Class(
 )
 
 #' Wolf table handler
-#' 
+#'
 #' @export
 TableHandler <- R6::R6Class(
   "WolfTableHandler",
@@ -358,13 +358,13 @@ TableHandler <- R6::R6Class(
       # x = ,
       # file = "",
       # append = FALSE,
-      quote = TRUE, 
+      quote = TRUE,
       sep = " ",
-      eol = "\n", 
-      na = "", 
-      dec = ".", 
+      eol = "\n",
+      na = "",
+      dec = ".",
       row.names = FALSE,
-      qmethod = "escape", 
+      qmethod = "escape",
       fileEncoding = "UTF-8"
     )
   )
@@ -378,7 +378,7 @@ modify_opts <- function(...) {
 }
 
 #' Wolf CSV handler
-#' 
+#'
 #' @export
 CsvHandler <- R6::R6Class(
   "WolfCsvHandler",
@@ -403,9 +403,9 @@ CsvHandler <- R6::R6Class(
 )
 
 #' Wolf CSV2 handler
-#' 
+#'
 #' Writes entries to a CSV2 file (semicolon separated, comma decimal)
-#' 
+#'
 #' @export
 Csv2Handler <- R6::R6Class(
   "WolfCsv2Handler",
@@ -413,15 +413,15 @@ Csv2Handler <- R6::R6Class(
   private = list(
     path_ext = ".csv2",
     table_opts = modify_opts(
-      sep = ";", 
-      dec = ",", 
+      sep = ";",
+      dec = ",",
       qmethod = "double"
     )
   )
 )
 
 #' Wolf TSV handler
-#' 
+#'
 #' @export
 TsvHandler <- R6::R6Class(
   "WolfTsvHandler",
@@ -483,9 +483,9 @@ DcfHandler <- R6::R6Class(
 #' JSON handler
 #'
 #' File is overwritten each time with only the most recent entry.  At finalize,
-#' all entries are written to the file. [wolf::JsonlHandler] is recommended for 
+#' all entries are written to the file. [wolf::JsonlHandler] is recommended for
 #' continuous writing.
-#'  
+#'
 #' @export
 JsonHandler <- R6::R6Class(
   "WolfJsonHandler",
@@ -525,10 +525,10 @@ JsonHandler <- R6::R6Class(
 )
 
 #' JSONL handler
-#' 
+#'
 #' Each entry is written as a single line of JSON.  This is recommended over the
 #' [wolf::JsonHandler] for continuous writing
-#' 
+#'
 #' @export
 JsonlHandler <- R6::R6Class(
   "WolfJsonlHandler",
