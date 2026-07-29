@@ -12,25 +12,85 @@ Write entries to a connection
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
   \describe{
-    \item{\code{description}}{The file connection description}
+    \item{\code{connection}}{The file connection}
   }
   \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
+    \item \href{#method-WolfConnectionHandler-initialize}{\code{WolfConnectionHandler$new()}}
+    \item \href{#method-WolfConnectionHandler-single_writer}{\code{WolfConnectionHandler$single_writer()}}
+    \item \href{#method-WolfConnectionHandler-bulk_writer}{\code{WolfConnectionHandler$bulk_writer()}}
     \item \href{#method-WolfConnectionHandler-clone}{\code{WolfConnectionHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="initialize"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-initialize'><code>WolfHandler$initialize()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
 </ul>
 </details>}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfConnectionHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-initialize}{}}}
+\subsection{\code{WolfConnectionHandler$new()}}{
+  Initialized the handler
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfConnectionHandler$new(name, connection, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{Handler name}
+      \item{\code{connection}}{Connection to write to}
+      \item{\code{...}}{Additional arguments passed to `WolfHandler$initialize(...)`}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfConnectionHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-single_writer}{}}}
+\subsection{\code{WolfConnectionHandler$single_writer()}}{
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfConnectionHandler$single_writer(entry)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entry}}{A [wolf::wolf_entry()] object}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfConnectionHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-bulk_writer}{}}}
+\subsection{\code{WolfConnectionHandler$bulk_writer()}}{
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfConnectionHandler$bulk_writer(entries)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entries}}{A list of [wolf::wolf_entry()] objects}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-WolfConnectionHandler-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfConnectionHandler-clone}{}}}

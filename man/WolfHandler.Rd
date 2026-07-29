@@ -21,12 +21,24 @@ can be toggled on/off during processing as needed}
   }
   \if{html}{\out{</div>}}
 }
+\section{Active bindings}{
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{entries}}{A list of [wolf::wolf_entry()] objects}
+
+    \item{\code{queued}}{A list of [wolf::wolf_entry()] objects that have not yet been written}
+  }
+  \if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-WolfHandler-initialize}{\code{WolfHandler$new()}}
     \item \href{#method-WolfHandler-process}{\code{WolfHandler$process()}}
     \item \href{#method-WolfHandler-write}{\code{WolfHandler$write()}}
+    \item \href{#method-WolfHandler-single_writer}{\code{WolfHandler$single_writer()}}
+    \item \href{#method-WolfHandler-bulk_writer}{\code{WolfHandler$bulk_writer()}}
+    \item \href{#method-WolfHandler-setup_writer}{\code{WolfHandler$setup_writer()}}
     \item \href{#method-WolfHandler-read}{\code{WolfHandler$read()}}
     \item \href{#method-WolfHandler-close}{\code{WolfHandler$close()}}
     \item \href{#method-WolfHandler-clone}{\code{WolfHandler$clone()}}
@@ -77,7 +89,8 @@ class}
 \if{latex}{\out{\hypertarget{method-WolfHandler-write}{}}}
 \subsection{\code{WolfHandler$write()}}{
   Calls the private writer method.  When `sel$delay = FALSE`,
-and there are entries in `self$queued`, each file is written
+and there are entries in `self$queued`, each file is written.  To control
+_how_ the entries are written, modify the `$writer()` method
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfHandler$write(entry)}
@@ -93,10 +106,64 @@ and there are entries in `self$queued`, each file is written
 }
 
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfHandler-single_writer}{}}}
+\subsection{\code{WolfHandler$single_writer()}}{
+  Writes a single `entry` object.  This is the default writer
+method and can be modified to change how entries are written.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfHandler$single_writer(entry)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entry}}{A [wolf::wolf_entry()] object}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfHandler-bulk_writer}{}}}
+\subsection{\code{WolfHandler$bulk_writer()}}{
+  A special writer method to handle writing multiple entries 
+at once.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfHandler$bulk_writer(entries)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entries}}{A list of [wolf::wolf_entry()] objects}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfHandler-setup_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfHandler-setup_writer}{}}}
+\subsection{\code{WolfHandler$setup_writer()}}{
+  A one-time setup method for the writer.  This may be
+necessary for certain handlers, like [wolf::TableHandler] which sets up
+the column names in a file before writing
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfHandler$setup_writer()}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-WolfHandler-read"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfHandler-read}{}}}
 \subsection{\code{WolfHandler$read()}}{
-  Read entries from the handler
+  Read entries
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfHandler$read()}
@@ -108,7 +175,7 @@ and there are entries in `self$queued`, each file is written
 \if{html}{\out{<a id="method-WolfHandler-close"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfHandler-close}{}}}
 \subsection{\code{WolfHandler$close()}}{
-  Calls the private finalize() method
+  Calls the private `$finalize()` method
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfHandler$close()}

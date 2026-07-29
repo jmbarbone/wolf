@@ -20,14 +20,17 @@ File connection handler
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-WolfFileHandler-initialize}{\code{WolfFileHandler$new()}}
+    \item \href{#method-WolfFileHandler-read}{\code{WolfFileHandler$read()}}
     \item \href{#method-WolfFileHandler-clone}{\code{WolfFileHandler$clone()}}
   }
 }
-\if{html}{\out{<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="bulk_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-bulk_writer'><code>WolfHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="single_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-single_writer'><code>WolfHandler$single_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
 </ul>
 </details>}}
@@ -49,6 +52,18 @@ File connection handler
       \item{\code{clear}}{Removes file (if already exists)}
       \item{\code{...}}{Additional arguments passed to `WolfHandler$initialize(...)`}
     }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfFileHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfFileHandler-read}{}}}
+\subsection{\code{WolfFileHandler$read()}}{
+  Read the log file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfFileHandler$read()}
     \if{html}{\out{</div>}}
   }
 }

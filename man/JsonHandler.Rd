@@ -14,18 +14,76 @@ continuous writing.
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
+    \item \href{#method-WolfJsonHandler-single_writer}{\code{WolfJsonHandler$single_writer()}}
+    \item \href{#method-WolfJsonHandler-bulk_writer}{\code{WolfJsonHandler$bulk_writer()}}
+    \item \href{#method-WolfJsonHandler-reader}{\code{WolfJsonHandler$reader()}}
     \item \href{#method-WolfJsonHandler-clone}{\code{WolfJsonHandler$clone()}}
   }
 }
-\if{html}{\out{<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><code>WolfFileHandler$initialize()</code></li>
+  <li><code>WolfFileHandler$read()</code></li>
 </ul>
 </details>}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfJsonHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfJsonHandler-single_writer}{}}}
+\subsection{\code{WolfJsonHandler$single_writer()}}{
+  Writes a single [wolf::wolf_entry()] object to
+the log file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfJsonHandler$single_writer(entry)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entry}}{A [wolf::wolf_entry()] object}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfJsonHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfJsonHandler-bulk_writer}{}}}
+\subsection{\code{WolfJsonHandler$bulk_writer()}}{
+  Writes a list of [wolf::wolf_entry()] objects to the log file.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfJsonHandler$bulk_writer(entries)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entries}}{A list of [wolf::wolf_entry()] objects}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfJsonHandler-reader"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfJsonHandler-reader}{}}}
+\subsection{\code{WolfJsonHandler$reader()}}{
+  Reads the log file into a [base::list] object
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfJsonHandler$reader()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A list of [wolf::wolf_entry()] objects
+  }
+}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-WolfJsonHandler-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfJsonHandler-clone}{}}}

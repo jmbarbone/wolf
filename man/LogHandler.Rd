@@ -12,18 +12,41 @@ Wolf default log handler
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
+    \item \href{#method-WolfLogHandler-single_writer}{\code{WolfLogHandler$single_writer()}}
     \item \href{#method-WolfLogHandler-clone}{\code{WolfLogHandler$clone()}}
   }
 }
-\if{html}{\out{<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="bulk_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-bulk_writer'><code>WolfHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="setup_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-setup_writer'><code>WolfHandler$setup_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><code>WolfFileHandler$initialize()</code></li>
+  <li><code>WolfFileHandler$read()</code></li>
 </ul>
 </details>}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfLogHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfLogHandler-single_writer}{}}}
+\subsection{\code{WolfLogHandler$single_writer()}}{
+  Writes a single [format()]'ed [wolf::wolf_entry()] object to
+the log file
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfLogHandler$single_writer(entry)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{entry}}{A [wolf::wolf_entry()] object}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-WolfLogHandler-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfLogHandler-clone}{}}}
