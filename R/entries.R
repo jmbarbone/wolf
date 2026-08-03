@@ -15,18 +15,18 @@
 #'
 #' @export
 wolf_entry <- function(
-  name = NULL,
-  message = NULL,
+  name = NULL, # character()
+  message = NULL, # character()
   time = Sys.time(),
   type = c("debug", "info", "warn", "error"),
   frame = parent.frame(),
-  expr = NULL,
-  condition = NULL
+  expr = NULL, # expression()
+  condition = NULL # character()
 ) {
   type <- fuj::match_arg(type)
   x <- list(
     time = time,
-    type = type,
+    type = ordered(type, c("debug", "info", "warn", "error")),
     name = name,
     message = message,
     frame = frame,
@@ -111,4 +111,9 @@ as.list.wolf_entry <- function(x, ...) {
   x$expr <- format(x$expr %||% NA)
   x$frame <- format(x$frame %||% NA)
   x
+}
+
+#' @export
+as.data.frame.wolf_entry <- function(x, ...) {
+  mark::quick_df(as.list(x))
 }
