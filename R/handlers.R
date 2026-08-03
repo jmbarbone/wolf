@@ -74,7 +74,7 @@ WolfHandler <- R6::R6Class(
         private$add_queue(entry)
       } else {
         private$add_entry(entry)
-        self$single_writer(entry)
+        self$write(entry)
       }
 
       self
@@ -86,14 +86,11 @@ WolfHandler <- R6::R6Class(
     #' _how_ the entries are written, modify the `$writer()` method
     write = function(entry) {
       if (!private$initialized) {
-        private$init_writer()
+        self$init_writer()
         private$initialized <- TRUE
       }
 
-      if (!self$delay) {
-        private$write_delayed()
-      }
-
+      private$write_delayed()
       self$single_writer(entry)
     },
 
@@ -116,7 +113,7 @@ WolfHandler <- R6::R6Class(
     #' @description A one-time setup method for the writer.  This may be
     #' necessary for certain handlers, like [wolf::TableHandler] which sets up
     #' the column names in a file before writing
-    setup_writer = function() {
+    init_writer = function() {
       NULL
     },
 
