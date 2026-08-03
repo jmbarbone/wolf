@@ -1,9 +1,8 @@
-
 #' Wolf Yaml Handler
-#' 
+#'
 #' Like the [wolf::JsonHandler], the `$single_writer()` method overwrites the
 #' log with the most recent value; and all entries are written when closed.
-#' 
+#'
 #' @include handlers-file.R
 #' @export
 YamlHandler <- R6::R6Class(
@@ -51,9 +50,9 @@ YamlHandler <- R6::R6Class(
 
 #' Wolf Yaml 1.2 Handler
 #'
-#' Like the [wolf::JsonlHandler], the `$single_writer()` method appends each 
+#' Like the [wolf::JsonlHandler], the `$single_writer()` method appends each
 #' entry to the log file.
-#' 
+#'
 #' @include handlers-file.R
 #' @export
 Yaml12Handler <- R6::R6Class(
