@@ -13,5 +13,3 @@ md5 <- function(x) {
   writeBin(s, con, useBytes = TRUE)
   tools::md5sum(path)
 }
-
-FOO <- 1
