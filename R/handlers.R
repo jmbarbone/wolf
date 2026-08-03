@@ -153,7 +153,46 @@ WolfHandler <- R6::R6Class(
     },
     # modifiable
     validate = function() {
-      NULL
+      # check args
+      private$validate_writer(self$single_writer, "single")
+      private$validate_writer(self$bulk_writer, "bulk")
+    },
+    validate_writer = function(fun, method) {
+      if (is.null(fun)) {
+        return()
+      }
+
+      if (!is.function(fun)) {
+        stop("writer must be a function", call. = FALSE)
+      }
+
+      switch(
+        method,
+        single = {
+          if (!identical(formals(fun), as.pairlist(alist(entry = )))) {
+            warning(
+              "writer must have a single argument named 'entry'",
+              " for writer: ",
+              deparse(substitute(fun)),
+              " in class ",
+              class(self)[1L],
+              call. = FALSE
+            )
+          }
+        },
+        bulk = {
+          if (!identical(formals(fun), as.pairlist(alist(entries = )))) {
+            warning(
+              "writer must have a single argument named 'entries'",
+              " for writer: ",
+              deparse(substitute(fun)),
+              " in class ",
+              class(self)[1L],
+              call. = FALSE
+            )
+          }
+        }
+      )
     },
     finalize = function() {
       if (self$active) {
