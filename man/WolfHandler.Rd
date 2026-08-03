@@ -37,7 +37,7 @@ been written}
     \item \href{#method-WolfHandler-write}{\code{WolfHandler$write()}}
     \item \href{#method-WolfHandler-single_writer}{\code{WolfHandler$single_writer()}}
     \item \href{#method-WolfHandler-bulk_writer}{\code{WolfHandler$bulk_writer()}}
-    \item \href{#method-WolfHandler-setup_writer}{\code{WolfHandler$setup_writer()}}
+    \item \href{#method-WolfHandler-init_writer}{\code{WolfHandler$init_writer()}}
     \item \href{#method-WolfHandler-read}{\code{WolfHandler$read()}}
     \item \href{#method-WolfHandler-close}{\code{WolfHandler$close()}}
     \item \href{#method-WolfHandler-clone}{\code{WolfHandler$clone()}}
@@ -145,15 +145,15 @@ at once.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfHandler-setup_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfHandler-setup_writer}{}}}
-\subsection{\code{WolfHandler$setup_writer()}}{
+\if{html}{\out{<a id="method-WolfHandler-init_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfHandler-init_writer}{}}}
+\subsection{\code{WolfHandler$init_writer()}}{
   A one-time setup method for the writer.  This may be
 necessary for certain handlers, like [wolf::TableHandler] which sets up
 the column names in a file before writing
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfHandler$setup_writer()}
+    \preformatted{WolfHandler$init_writer()}
     \if{html}{\out{</div>}}
   }
 }
