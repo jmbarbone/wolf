@@ -53,7 +53,8 @@ the log file
 \if{html}{\out{<a id="method-WolfJsonHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfJsonHandler-bulk_writer}{}}}
 \subsection{\code{WolfJsonHandler$bulk_writer()}}{
-  Writes a list of [wolf::wolf_entry()] objects to the log file.
+  Writes a list of [wolf::wolf_entry()] objects to the log
+  file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfJsonHandler$bulk_writer(entries)}

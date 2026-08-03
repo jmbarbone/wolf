@@ -1,0 +1,5 @@
+linters: linters_with_defaults(
+  assignment_linter = NULL, # I know what I'm doing
+  object_name_linter = NULL # PascalCase for class
+  ) # see vignette("lintr")
+encoding: "UTF-8"

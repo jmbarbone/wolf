@@ -16,7 +16,8 @@ JsonHandler <- R6::R6Class(
       jsonlite::write_json(as.list(entry), self$path, auto_unbox = TRUE)
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file.
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       self$single_writer(lapply(entries, as.list))
@@ -62,7 +63,8 @@ JsonlHandler <- R6::R6Class(
       cat(json, "\n", file = self$path, append = TRUE)
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file.
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       for (entry in entries) {

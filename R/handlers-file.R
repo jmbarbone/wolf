@@ -115,7 +115,8 @@ DcfHandler <- R6::R6Class(
       cat("\n", file = self$path, append = TRUE)
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file.
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       self$single_writer(lapply(entries, as.list))

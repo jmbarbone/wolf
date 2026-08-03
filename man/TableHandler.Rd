@@ -9,9 +9,11 @@
 \title{Wolf table handler}
 \description{
 \itemize{
-\item \link{TableHandler} writes entries to a table file (space separated, dot decimal); default
+\item \link{TableHandler} writes entries to a table file (space separated, dot
+decimal); default
 \item \link{CsvHandler} writes entries to a CSV file (comma separated, dot decimal)
-\item \link{Csv2Handler} writes entries to a CSV2 file (semicolon separated, comma decimal)
+\item \link{Csv2Handler} writes entries to a CSV2 file (semicolon separated, comma
+decimal)
 \item \link{TsvHandler} writes entries to a TSV file (tab separated, dot decimal)
 \item \link{Tsv2Handler} writes entries to a TSV2 file (pipe separated, dot decimal)
 }
@@ -87,8 +89,8 @@ This will append the \code{entry} as a new row
 \if{html}{\out{<a id="method-WolfTableHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfTableHandler-bulk_writer}{}}}
 \subsection{\code{WolfTableHandler$bulk_writer()}}{
-  Writes a list of \code{\link[=wolf_entry]{wolf_entry()}} objects to the log file.
-This will append the \code{entries} as new rows
+  Writes a list of \code{\link[=wolf_entry]{wolf_entry()}} objects to the log
+file. This will append the \code{entries} as new rows
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfTableHandler$bulk_writer(entries)}

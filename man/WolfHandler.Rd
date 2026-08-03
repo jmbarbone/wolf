@@ -24,7 +24,8 @@ can be toggled on/off during processing as needed}
   \describe{
     \item{\code{entries}}{A list of [wolf::wolf_entry()] objects}
 
-    \item{\code{queued}}{A list of [wolf::wolf_entry()] objects that have not yet been written}
+    \item{\code{queued}}{A list of [wolf::wolf_entry()] objects that have not yet
+been written}
   }
   \if{html}{\out{</div>}}
 }

@@ -4,7 +4,7 @@
 \alias{Yaml12Handler}
 \title{Wolf Yaml 1.2 Handler}
 \description{
-Like the [wolf::JsonlHandler], the `$single_writer()` method appends each 
+Like the [wolf::JsonlHandler], the `$single_writer()` method appends each
 entry to the log file.
 }
 \section{Super classes}{
@@ -71,7 +71,8 @@ entry to the log file.
 \if{html}{\out{<a id="method-WolfYaml12Handler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfYaml12Handler-bulk_writer}{}}}
 \subsection{\code{WolfYaml12Handler$bulk_writer()}}{
-  Writes a list of [wolf::wolf_entry()] objects to the log file.
+  Writes a list of [wolf::wolf_entry()] objects to the log
+  file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfYaml12Handler$bulk_writer(entries)}

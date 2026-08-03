@@ -3,9 +3,11 @@
 #' Write entries to a table file (CSV, TSV, etc.)
 #'
 #' @description
-#' - [TableHandler] writes entries to a table file (space separated, dot decimal); default
+#' - [TableHandler] writes entries to a table file (space separated, dot
+#'   decimal); default
 #' - [CsvHandler] writes entries to a CSV file (comma separated, dot decimal)
-#' - [Csv2Handler] writes entries to a CSV2 file (semicolon separated, comma decimal)
+#' - [Csv2Handler] writes entries to a CSV2 file (semicolon separated, comma
+#'   decimal)
 #' - [TsvHandler] writes entries to a TSV file (tab separated, dot decimal)
 #' - [Tsv2Handler] writes entries to a TSV2 file (pipe separated, dot decimal)
 #'
@@ -48,8 +50,8 @@ TableHandler <- R6::R6Class(
       )
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
-    #' This will append the `entries` as new rows
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file. This will append the `entries` as new rows
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       entries <- lapply(entries, \(e) fuj::quick_df(as.list(e)))
@@ -91,9 +93,6 @@ TableHandler <- R6::R6Class(
   private = list(
     path_ext = ".txt",
     table_opts = list(
-      # x = ,
-      # file = "",
-      # append = FALSE,
       quote = TRUE,
       sep = " ",
       eol = "\n",

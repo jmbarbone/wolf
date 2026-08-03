@@ -51,7 +51,8 @@ the log file
 \if{html}{\out{<a id="method-WolfDcfHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfDcfHandler-bulk_writer}{}}}
 \subsection{\code{WolfDcfHandler$bulk_writer()}}{
-  Writes a list of [wolf::wolf_entry()] objects to the log file.
+  Writes a list of [wolf::wolf_entry()] objects to the log
+  file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfDcfHandler$bulk_writer(entries)}

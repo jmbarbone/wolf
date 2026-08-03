@@ -21,7 +21,8 @@ YamlHandler <- R6::R6Class(
       yaml::write_yaml(as.list(entry), self$path)
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file.
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       yaml::write_yaml(lapply(entries, as.list), self$path)
@@ -73,7 +74,8 @@ Yaml12Handler <- R6::R6Class(
       cat("---", yaml, sep = "\n", file = self$path, append = TRUE)
     },
 
-    #' @description Writes a list of [wolf::wolf_entry()] objects to the log file.
+    #' @description Writes a list of [wolf::wolf_entry()] objects to the log
+    #'   file.
     #' @param entries A list of [wolf::wolf_entry()] objects
     bulk_writer = function(entries) {
       yaml <- yaml12::format_yaml(lapply(entries, as.list), multi = TRUE)

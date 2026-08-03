@@ -59,7 +59,8 @@ Writes entries to a connection
 \if{html}{\out{<a id="method-WolfConnectionHandler-single_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfConnectionHandler-single_writer}{}}}
 \subsection{\code{WolfConnectionHandler$single_writer()}}{
-  Writes a single [wolf::wolf_entry()] object to the connection
+  Writes a single [wolf::wolf_entry()] object to the
+  connection
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfConnectionHandler$single_writer(entry)}
@@ -78,7 +79,8 @@ Writes entries to a connection
 \if{html}{\out{<a id="method-WolfConnectionHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfConnectionHandler-bulk_writer}{}}}
 \subsection{\code{WolfConnectionHandler$bulk_writer()}}{
-  Writes a list of [wolf::wolf_entry()] objects to the connection
+  Writes a list of [wolf::wolf_entry()] objects to the
+  connection
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfConnectionHandler$bulk_writer(entries)}

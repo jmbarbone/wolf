@@ -1,12 +1,6 @@
 # write(entry) should then handle everything within the entry
 # close() should be used to handle anything
 
-# new_handler <- function(name, write = NULL, close = NULL, ...) {
-#   public <- list(write = write, close = close)
-#   public <- public[!vapply(public, is.null, NA)]
-#   R6::R6Class(name, inherit = WolfHandler, public = public)
-# }
-
 # public methods should not be modified
 
 #' WolfHandler
@@ -31,7 +25,8 @@ WolfHandler <- R6::R6Class(
       }
     }),
 
-    #' @field queued A list of [wolf::wolf_entry()] objects that have not yet been written
+    #' @field queued A list of [wolf::wolf_entry()] objects that have not yet
+    #'   been written
     queued = local({
       function(value) {
         if (!missing(value)) {

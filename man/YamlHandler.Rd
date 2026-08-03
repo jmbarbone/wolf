@@ -71,7 +71,8 @@ log with the most recent value; and all entries are written when closed.
 \if{html}{\out{<a id="method-WolfYamlHandler-bulk_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-WolfYamlHandler-bulk_writer}{}}}
 \subsection{\code{WolfYamlHandler$bulk_writer()}}{
-  Writes a list of [wolf::wolf_entry()] objects to the log file.
+  Writes a list of [wolf::wolf_entry()] objects to the log
+  file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfYamlHandler$bulk_writer(entries)}
