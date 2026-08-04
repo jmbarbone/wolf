@@ -7,7 +7,7 @@
 Writes entries to a connection
 }
 \section{Super class}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfConnectionHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{ConnectionHandler}
 }
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
@@ -19,10 +19,10 @@ Writes entries to a connection
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfConnectionHandler-initialize}{\code{WolfConnectionHandler$new()}}
-    \item \href{#method-WolfConnectionHandler-single_writer}{\code{WolfConnectionHandler$single_writer()}}
-    \item \href{#method-WolfConnectionHandler-bulk_writer}{\code{WolfConnectionHandler$bulk_writer()}}
-    \item \href{#method-WolfConnectionHandler-clone}{\code{WolfConnectionHandler$clone()}}
+    \item \href{#method-ConnectionHandler-initialize}{\code{ConnectionHandler$new()}}
+    \item \href{#method-ConnectionHandler-single_writer}{\code{ConnectionHandler$single_writer()}}
+    \item \href{#method-ConnectionHandler-bulk_writer}{\code{ConnectionHandler$bulk_writer()}}
+    \item \href{#method-ConnectionHandler-clone}{\code{ConnectionHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -35,13 +35,13 @@ Writes entries to a connection
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfConnectionHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-initialize}{}}}
-\subsection{\code{WolfConnectionHandler$new()}}{
+\if{html}{\out{<a id="method-ConnectionHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-ConnectionHandler-initialize}{}}}
+\subsection{\code{ConnectionHandler$new()}}{
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfConnectionHandler$new(name, connection = stdout(), ...)}
+    \preformatted{ConnectionHandler$new(name, connection = stdout(), ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -56,14 +56,14 @@ Writes entries to a connection
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfConnectionHandler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-single_writer}{}}}
-\subsection{\code{WolfConnectionHandler$single_writer()}}{
+\if{html}{\out{<a id="method-ConnectionHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-ConnectionHandler-single_writer}{}}}
+\subsection{\code{ConnectionHandler$single_writer()}}{
   Writes a single [wolf::wolf_entry()] object to the
   connection
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfConnectionHandler$single_writer(entry)}
+    \preformatted{ConnectionHandler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -76,14 +76,14 @@ Writes entries to a connection
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfConnectionHandler-bulk_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-bulk_writer}{}}}
-\subsection{\code{WolfConnectionHandler$bulk_writer()}}{
+\if{html}{\out{<a id="method-ConnectionHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-ConnectionHandler-bulk_writer}{}}}
+\subsection{\code{ConnectionHandler$bulk_writer()}}{
   Writes a list of [wolf::wolf_entry()] objects to the
   connection
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfConnectionHandler$bulk_writer(entries)}
+    \preformatted{ConnectionHandler$bulk_writer(entries)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -96,13 +96,13 @@ Writes entries to a connection
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfConnectionHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfConnectionHandler-clone}{}}}
-\subsection{\code{WolfConnectionHandler$clone()}}{
+\if{html}{\out{<a id="method-ConnectionHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ConnectionHandler-clone}{}}}
+\subsection{\code{ConnectionHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfConnectionHandler$clone(deep = FALSE)}
+    \preformatted{ConnectionHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

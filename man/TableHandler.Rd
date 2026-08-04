@@ -22,17 +22,17 @@ decimal)
 Write entries to a table file (CSV, TSV, etc.)
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfTableHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{TableHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfTableHandler-initialize}{\code{WolfTableHandler$new()}}
-    \item \href{#method-WolfTableHandler-single_writer}{\code{WolfTableHandler$single_writer()}}
-    \item \href{#method-WolfTableHandler-bulk_writer}{\code{WolfTableHandler$bulk_writer()}}
-    \item \href{#method-WolfTableHandler-init_writer}{\code{WolfTableHandler$init_writer()}}
-    \item \href{#method-WolfTableHandler-read}{\code{WolfTableHandler$read()}}
-    \item \href{#method-WolfTableHandler-clone}{\code{WolfTableHandler$clone()}}
+    \item \href{#method-TableHandler-initialize}{\code{TableHandler$new()}}
+    \item \href{#method-TableHandler-single_writer}{\code{TableHandler$single_writer()}}
+    \item \href{#method-TableHandler-bulk_writer}{\code{TableHandler$bulk_writer()}}
+    \item \href{#method-TableHandler-init_writer}{\code{TableHandler$init_writer()}}
+    \item \href{#method-TableHandler-read}{\code{TableHandler$read()}}
+    \item \href{#method-TableHandler-clone}{\code{TableHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -43,13 +43,13 @@ Write entries to a table file (CSV, TSV, etc.)
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-initialize}{}}}
-\subsection{\code{WolfTableHandler$new()}}{
+\if{html}{\out{<a id="method-TableHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-initialize}{}}}
+\subsection{\code{TableHandler$new()}}{
   Initializes the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$new(name, path = NULL, table_opts = list(), ...)}
+    \preformatted{TableHandler$new(name, path = NULL, table_opts = list(), ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -65,14 +65,14 @@ Write entries to a table file (CSV, TSV, etc.)
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-single_writer}{}}}
-\subsection{\code{WolfTableHandler$single_writer()}}{
+\if{html}{\out{<a id="method-TableHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-single_writer}{}}}
+\subsection{\code{TableHandler$single_writer()}}{
   Writes a single \code{\link[=wolf_entry]{wolf_entry()}} object to the log file.
 This will append the \code{entry} as a new row
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$single_writer(entry)}
+    \preformatted{TableHandler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -85,14 +85,14 @@ This will append the \code{entry} as a new row
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-bulk_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-bulk_writer}{}}}
-\subsection{\code{WolfTableHandler$bulk_writer()}}{
+\if{html}{\out{<a id="method-TableHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-bulk_writer}{}}}
+\subsection{\code{TableHandler$bulk_writer()}}{
   Writes a list of \code{\link[=wolf_entry]{wolf_entry()}} objects to the log
 file. This will append the \code{entries} as new rows
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$bulk_writer(entries)}
+    \preformatted{TableHandler$bulk_writer(entries)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -105,37 +105,37 @@ file. This will append the \code{entries} as new rows
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-init_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-init_writer}{}}}
-\subsection{\code{WolfTableHandler$init_writer()}}{
+\if{html}{\out{<a id="method-TableHandler-init_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-init_writer}{}}}
+\subsection{\code{TableHandler$init_writer()}}{
   Initializes the log file with column names
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$init_writer()}
+    \preformatted{TableHandler$init_writer()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-read"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-read}{}}}
-\subsection{\code{WolfTableHandler$read()}}{
+\if{html}{\out{<a id="method-TableHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-read}{}}}
+\subsection{\code{TableHandler$read()}}{
   Reads the log file into a \link[base:data.frame]{base::data.frame} object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$read()}
+    \preformatted{TableHandler$read()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTableHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTableHandler-clone}{}}}
-\subsection{\code{WolfTableHandler$clone()}}{
+\if{html}{\out{<a id="method-TableHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TableHandler-clone}{}}}
+\subsection{\code{TableHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTableHandler$clone(deep = FALSE)}
+    \preformatted{TableHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -149,13 +149,13 @@ file. This will append the \code{entries} as new rows
 
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfTableHandler} -> \code{WolfCsvHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{\link[wolf:TableHandler]{TableHandler}} -> \code{CsvHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfCsvHandler-initialize}{\code{WolfCsvHandler$new()}}
-    \item \href{#method-WolfCsvHandler-clone}{\code{WolfCsvHandler$clone()}}
+    \item \href{#method-CsvHandler-initialize}{\code{CsvHandler$new()}}
+    \item \href{#method-CsvHandler-clone}{\code{CsvHandler$clone()}}
   }
 }
 \if{html}{\out{<details><summary>Inherited methods</summary>
@@ -163,20 +163,20 @@ file. This will append the \code{entries} as new rows
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><code>WolfTableHandler$bulk_writer()</code></li>
-  <li><code>WolfTableHandler$init_writer()</code></li>
-  <li><code>WolfTableHandler$read()</code></li>
-  <li><code>WolfTableHandler$single_writer()</code></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="read"><a href='../../wolf/html/TableHandler.html#method-TableHandler-read'><code>TableHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="single_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-single_writer'><code>TableHandler$single_writer()</code></a></span></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfCsvHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfCsvHandler-initialize}{}}}
-\subsection{\code{WolfCsvHandler$new()}}{
+\if{html}{\out{<a id="method-CsvHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvHandler-initialize}{}}}
+\subsection{\code{CsvHandler$new()}}{
   Initializes the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfCsvHandler$new(name, path = NULL, ...)}
+    \preformatted{CsvHandler$new(name, path = NULL, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -191,13 +191,13 @@ file. This will append the \code{entries} as new rows
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfCsvHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfCsvHandler-clone}{}}}
-\subsection{\code{WolfCsvHandler$clone()}}{
+\if{html}{\out{<a id="method-CsvHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CsvHandler-clone}{}}}
+\subsection{\code{CsvHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfCsvHandler$clone(deep = FALSE)}
+    \preformatted{CsvHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -211,12 +211,12 @@ file. This will append the \code{entries} as new rows
 
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfTableHandler} -> \code{WolfCsv2Handler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{\link[wolf:TableHandler]{TableHandler}} -> \code{Csv2Handler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfCsv2Handler-clone}{\code{WolfCsv2Handler$clone()}}
+    \item \href{#method-Csv2Handler-clone}{\code{Csv2Handler$clone()}}
   }
 }
 \if{html}{\out{<details><summary>Inherited methods</summary>
@@ -224,21 +224,21 @@ file. This will append the \code{entries} as new rows
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><code>WolfTableHandler$bulk_writer()</code></li>
-  <li><code>WolfTableHandler$init_writer()</code></li>
-  <li><code>WolfTableHandler$initialize()</code></li>
-  <li><code>WolfTableHandler$read()</code></li>
-  <li><code>WolfTableHandler$single_writer()</code></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="initialize"><a href='../../wolf/html/TableHandler.html#method-TableHandler-initialize'><code>TableHandler$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="read"><a href='../../wolf/html/TableHandler.html#method-TableHandler-read'><code>TableHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="single_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-single_writer'><code>TableHandler$single_writer()</code></a></span></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfCsv2Handler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfCsv2Handler-clone}{}}}
-\subsection{\code{WolfCsv2Handler$clone()}}{
+\if{html}{\out{<a id="method-Csv2Handler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Csv2Handler-clone}{}}}
+\subsection{\code{Csv2Handler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfCsv2Handler$clone(deep = FALSE)}
+    \preformatted{Csv2Handler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -252,12 +252,12 @@ file. This will append the \code{entries} as new rows
 
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfTableHandler} -> \code{WolfTsvHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{\link[wolf:TableHandler]{TableHandler}} -> \code{TsvHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfTsvHandler-clone}{\code{WolfTsvHandler$clone()}}
+    \item \href{#method-TsvHandler-clone}{\code{TsvHandler$clone()}}
   }
 }
 \if{html}{\out{<details><summary>Inherited methods</summary>
@@ -265,21 +265,21 @@ file. This will append the \code{entries} as new rows
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><code>WolfTableHandler$bulk_writer()</code></li>
-  <li><code>WolfTableHandler$init_writer()</code></li>
-  <li><code>WolfTableHandler$initialize()</code></li>
-  <li><code>WolfTableHandler$read()</code></li>
-  <li><code>WolfTableHandler$single_writer()</code></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="initialize"><a href='../../wolf/html/TableHandler.html#method-TableHandler-initialize'><code>TableHandler$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="read"><a href='../../wolf/html/TableHandler.html#method-TableHandler-read'><code>TableHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="single_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-single_writer'><code>TableHandler$single_writer()</code></a></span></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTsvHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTsvHandler-clone}{}}}
-\subsection{\code{WolfTsvHandler$clone()}}{
+\if{html}{\out{<a id="method-TsvHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TsvHandler-clone}{}}}
+\subsection{\code{TsvHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTsvHandler$clone(deep = FALSE)}
+    \preformatted{TsvHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -293,12 +293,12 @@ file. This will append the \code{entries} as new rows
 
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfTableHandler} -> \code{WolfTsv2Handler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{\link[wolf:TableHandler]{TableHandler}} -> \code{Tsv2Handler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfTsv2Handler-clone}{\code{WolfTsv2Handler$clone()}}
+    \item \href{#method-Tsv2Handler-clone}{\code{Tsv2Handler$clone()}}
   }
 }
 \if{html}{\out{<details><summary>Inherited methods</summary>
@@ -306,21 +306,21 @@ file. This will append the \code{entries} as new rows
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><code>WolfTableHandler$bulk_writer()</code></li>
-  <li><code>WolfTableHandler$init_writer()</code></li>
-  <li><code>WolfTableHandler$initialize()</code></li>
-  <li><code>WolfTableHandler$read()</code></li>
-  <li><code>WolfTableHandler$single_writer()</code></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="initialize"><a href='../../wolf/html/TableHandler.html#method-TableHandler-initialize'><code>TableHandler$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="read"><a href='../../wolf/html/TableHandler.html#method-TableHandler-read'><code>TableHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="single_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-single_writer'><code>TableHandler$single_writer()</code></a></span></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfTsv2Handler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfTsv2Handler-clone}{}}}
-\subsection{\code{WolfTsv2Handler$clone()}}{
+\if{html}{\out{<a id="method-Tsv2Handler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Tsv2Handler-clone}{}}}
+\subsection{\code{Tsv2Handler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfTsv2Handler$clone(deep = FALSE)}
+    \preformatted{Tsv2Handler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

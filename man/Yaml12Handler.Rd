@@ -8,16 +8,16 @@ Like the [wolf::JsonlHandler], the `$single_writer()` method appends each
 entry to the log file.
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfYaml12Handler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{Yaml12Handler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfYaml12Handler-initialize}{\code{WolfYaml12Handler$new()}}
-    \item \href{#method-WolfYaml12Handler-single_writer}{\code{WolfYaml12Handler$single_writer()}}
-    \item \href{#method-WolfYaml12Handler-bulk_writer}{\code{WolfYaml12Handler$bulk_writer()}}
-    \item \href{#method-WolfYaml12Handler-read}{\code{WolfYaml12Handler$read()}}
-    \item \href{#method-WolfYaml12Handler-clone}{\code{WolfYaml12Handler$clone()}}
+    \item \href{#method-Yaml12Handler-initialize}{\code{Yaml12Handler$new()}}
+    \item \href{#method-Yaml12Handler-single_writer}{\code{Yaml12Handler$single_writer()}}
+    \item \href{#method-Yaml12Handler-bulk_writer}{\code{Yaml12Handler$bulk_writer()}}
+    \item \href{#method-Yaml12Handler-read}{\code{Yaml12Handler$read()}}
+    \item \href{#method-Yaml12Handler-clone}{\code{Yaml12Handler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -29,13 +29,13 @@ entry to the log file.
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYaml12Handler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYaml12Handler-initialize}{}}}
-\subsection{\code{WolfYaml12Handler$new()}}{
+\if{html}{\out{<a id="method-Yaml12Handler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Yaml12Handler-initialize}{}}}
+\subsection{\code{Yaml12Handler$new()}}{
   Initializes the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYaml12Handler$new(name, ...)}
+    \preformatted{Yaml12Handler$new(name, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -49,13 +49,13 @@ entry to the log file.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYaml12Handler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYaml12Handler-single_writer}{}}}
-\subsection{\code{WolfYaml12Handler$single_writer()}}{
+\if{html}{\out{<a id="method-Yaml12Handler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-Yaml12Handler-single_writer}{}}}
+\subsection{\code{Yaml12Handler$single_writer()}}{
   Writes a single [wolf::wolf_entry()] object to the log file
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYaml12Handler$single_writer(entry)}
+    \preformatted{Yaml12Handler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -68,14 +68,14 @@ entry to the log file.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYaml12Handler-bulk_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYaml12Handler-bulk_writer}{}}}
-\subsection{\code{WolfYaml12Handler$bulk_writer()}}{
+\if{html}{\out{<a id="method-Yaml12Handler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-Yaml12Handler-bulk_writer}{}}}
+\subsection{\code{Yaml12Handler$bulk_writer()}}{
   Writes a list of [wolf::wolf_entry()] objects to the log
   file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYaml12Handler$bulk_writer(entries)}
+    \preformatted{Yaml12Handler$bulk_writer(entries)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -88,25 +88,25 @@ entry to the log file.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYaml12Handler-read"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYaml12Handler-read}{}}}
-\subsection{\code{WolfYaml12Handler$read()}}{
+\if{html}{\out{<a id="method-Yaml12Handler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-Yaml12Handler-read}{}}}
+\subsection{\code{Yaml12Handler$read()}}{
   Reads the log file into a [base::list] object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYaml12Handler$read()}
+    \preformatted{Yaml12Handler$read()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYaml12Handler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYaml12Handler-clone}{}}}
-\subsection{\code{WolfYaml12Handler$clone()}}{
+\if{html}{\out{<a id="method-Yaml12Handler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Yaml12Handler-clone}{}}}
+\subsection{\code{Yaml12Handler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYaml12Handler$clone(deep = FALSE)}
+    \preformatted{Yaml12Handler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

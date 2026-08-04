@@ -7,7 +7,7 @@
 Writes to a flat file
 }
 \section{Super class}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{FileHandler}
 }
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
@@ -19,10 +19,10 @@ Writes to a flat file
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfFileHandler-initialize}{\code{WolfFileHandler$new()}}
-    \item \href{#method-WolfFileHandler-single_writer}{\code{WolfFileHandler$single_writer()}}
-    \item \href{#method-WolfFileHandler-read}{\code{WolfFileHandler$read()}}
-    \item \href{#method-WolfFileHandler-clone}{\code{WolfFileHandler$clone()}}
+    \item \href{#method-FileHandler-initialize}{\code{FileHandler$new()}}
+    \item \href{#method-FileHandler-single_writer}{\code{FileHandler$single_writer()}}
+    \item \href{#method-FileHandler-read}{\code{FileHandler$read()}}
+    \item \href{#method-FileHandler-clone}{\code{FileHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -35,13 +35,13 @@ Writes to a flat file
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfFileHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfFileHandler-initialize}{}}}
-\subsection{\code{WolfFileHandler$new()}}{
+\if{html}{\out{<a id="method-FileHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-FileHandler-initialize}{}}}
+\subsection{\code{FileHandler$new()}}{
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfFileHandler$new(name, path = NULL, overwrite = TRUE, cleanup = FALSE, ...)}
+    \preformatted{FileHandler$new(name, path = NULL, overwrite = TRUE, cleanup = FALSE, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -58,13 +58,13 @@ Writes to a flat file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfFileHandler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfFileHandler-single_writer}{}}}
-\subsection{\code{WolfFileHandler$single_writer()}}{
+\if{html}{\out{<a id="method-FileHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-FileHandler-single_writer}{}}}
+\subsection{\code{FileHandler$single_writer()}}{
   Writes a single [wolf::wolf_entry()] object to the log file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfFileHandler$single_writer(entry)}
+    \preformatted{FileHandler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -77,25 +77,25 @@ Writes to a flat file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfFileHandler-read"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfFileHandler-read}{}}}
-\subsection{\code{WolfFileHandler$read()}}{
+\if{html}{\out{<a id="method-FileHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-FileHandler-read}{}}}
+\subsection{\code{FileHandler$read()}}{
   Read the log file
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfFileHandler$read()}
+    \preformatted{FileHandler$read()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfFileHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfFileHandler-clone}{}}}
-\subsection{\code{WolfFileHandler$clone()}}{
+\if{html}{\out{<a id="method-FileHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-FileHandler-clone}{}}}
+\subsection{\code{FileHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfFileHandler$clone(deep = FALSE)}
+    \preformatted{FileHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

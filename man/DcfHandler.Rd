@@ -7,15 +7,15 @@
 Wolf DCF handler
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfDcfHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{DcfHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfDcfHandler-single_writer}{\code{WolfDcfHandler$single_writer()}}
-    \item \href{#method-WolfDcfHandler-bulk_writer}{\code{WolfDcfHandler$bulk_writer()}}
-    \item \href{#method-WolfDcfHandler-read}{\code{WolfDcfHandler$read()}}
-    \item \href{#method-WolfDcfHandler-clone}{\code{WolfDcfHandler$clone()}}
+    \item \href{#method-DcfHandler-single_writer}{\code{DcfHandler$single_writer()}}
+    \item \href{#method-DcfHandler-bulk_writer}{\code{DcfHandler$bulk_writer()}}
+    \item \href{#method-DcfHandler-read}{\code{DcfHandler$read()}}
+    \item \href{#method-DcfHandler-clone}{\code{DcfHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -24,18 +24,18 @@ Wolf DCF handler
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="init_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-init_writer'><code>WolfHandler$init_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><code>WolfFileHandler$initialize()</code></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="FileHandler" data-id="initialize"><a href='../../wolf/html/FileHandler.html#method-FileHandler-initialize'><code>FileHandler$initialize()</code></a></span></li>
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfDcfHandler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfDcfHandler-single_writer}{}}}
-\subsection{\code{WolfDcfHandler$single_writer()}}{
+\if{html}{\out{<a id="method-DcfHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-DcfHandler-single_writer}{}}}
+\subsection{\code{DcfHandler$single_writer()}}{
   Writes a single [wolf::wolf_entry()] object to
 the log file
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfDcfHandler$single_writer(entry)}
+    \preformatted{DcfHandler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -48,14 +48,14 @@ the log file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfDcfHandler-bulk_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfDcfHandler-bulk_writer}{}}}
-\subsection{\code{WolfDcfHandler$bulk_writer()}}{
+\if{html}{\out{<a id="method-DcfHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-DcfHandler-bulk_writer}{}}}
+\subsection{\code{DcfHandler$bulk_writer()}}{
   Writes a list of [wolf::wolf_entry()] objects to the log
   file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfDcfHandler$bulk_writer(entries)}
+    \preformatted{DcfHandler$bulk_writer(entries)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -68,25 +68,25 @@ the log file
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfDcfHandler-read"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfDcfHandler-read}{}}}
-\subsection{\code{WolfDcfHandler$read()}}{
+\if{html}{\out{<a id="method-DcfHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-DcfHandler-read}{}}}
+\subsection{\code{DcfHandler$read()}}{
   Reads the log file into a [base::matrix] object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfDcfHandler$read()}
+    \preformatted{DcfHandler$read()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfDcfHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfDcfHandler-clone}{}}}
-\subsection{\code{WolfDcfHandler$clone()}}{
+\if{html}{\out{<a id="method-DcfHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DcfHandler-clone}{}}}
+\subsection{\code{DcfHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfDcfHandler$clone(deep = FALSE)}
+    \preformatted{DcfHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

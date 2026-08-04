@@ -8,16 +8,16 @@ Like the [wolf::JsonHandler], the `$single_writer()` method overwrites the
 log with the most recent value; and all entries are written when closed.
 }
 \section{Super classes}{
-\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{WolfFileHandler} -> \code{WolfYamlHandler}
+\code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{YamlHandler}
 }
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
-    \item \href{#method-WolfYamlHandler-initialize}{\code{WolfYamlHandler$new()}}
-    \item \href{#method-WolfYamlHandler-single_writer}{\code{WolfYamlHandler$single_writer()}}
-    \item \href{#method-WolfYamlHandler-bulk_writer}{\code{WolfYamlHandler$bulk_writer()}}
-    \item \href{#method-WolfYamlHandler-read}{\code{WolfYamlHandler$read()}}
-    \item \href{#method-WolfYamlHandler-clone}{\code{WolfYamlHandler$clone()}}
+    \item \href{#method-YamlHandler-initialize}{\code{YamlHandler$new()}}
+    \item \href{#method-YamlHandler-single_writer}{\code{YamlHandler$single_writer()}}
+    \item \href{#method-YamlHandler-bulk_writer}{\code{YamlHandler$bulk_writer()}}
+    \item \href{#method-YamlHandler-read}{\code{YamlHandler$read()}}
+    \item \href{#method-YamlHandler-clone}{\code{YamlHandler$clone()}}
   }
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
@@ -29,13 +29,13 @@ log with the most recent value; and all entries are written when closed.
 </ul>
 </details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYamlHandler-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYamlHandler-initialize}{}}}
-\subsection{\code{WolfYamlHandler$new()}}{
+\if{html}{\out{<a id="method-YamlHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-YamlHandler-initialize}{}}}
+\subsection{\code{YamlHandler$new()}}{
   Initializes the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYamlHandler$new(name, ...)}
+    \preformatted{YamlHandler$new(name, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -49,13 +49,13 @@ log with the most recent value; and all entries are written when closed.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYamlHandler-single_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYamlHandler-single_writer}{}}}
-\subsection{\code{WolfYamlHandler$single_writer()}}{
+\if{html}{\out{<a id="method-YamlHandler-single_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-YamlHandler-single_writer}{}}}
+\subsection{\code{YamlHandler$single_writer()}}{
   Writes a single [wolf::wolf_entry()] object to the log file
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYamlHandler$single_writer(entry)}
+    \preformatted{YamlHandler$single_writer(entry)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -68,14 +68,14 @@ log with the most recent value; and all entries are written when closed.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYamlHandler-bulk_writer"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYamlHandler-bulk_writer}{}}}
-\subsection{\code{WolfYamlHandler$bulk_writer()}}{
+\if{html}{\out{<a id="method-YamlHandler-bulk_writer"></a>}}
+\if{latex}{\out{\hypertarget{method-YamlHandler-bulk_writer}{}}}
+\subsection{\code{YamlHandler$bulk_writer()}}{
   Writes a list of [wolf::wolf_entry()] objects to the log
   file.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYamlHandler$bulk_writer(entries)}
+    \preformatted{YamlHandler$bulk_writer(entries)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -88,25 +88,25 @@ log with the most recent value; and all entries are written when closed.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYamlHandler-read"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYamlHandler-read}{}}}
-\subsection{\code{WolfYamlHandler$read()}}{
+\if{html}{\out{<a id="method-YamlHandler-read"></a>}}
+\if{latex}{\out{\hypertarget{method-YamlHandler-read}{}}}
+\subsection{\code{YamlHandler$read()}}{
   Reads the log file into a [base::list] object
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYamlHandler$read()}
+    \preformatted{YamlHandler$read()}
     \if{html}{\out{</div>}}
   }
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-WolfYamlHandler-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-WolfYamlHandler-clone}{}}}
-\subsection{\code{WolfYamlHandler$clone()}}{
+\if{html}{\out{<a id="method-YamlHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-YamlHandler-clone}{}}}
+\subsection{\code{YamlHandler$clone()}}{
   The objects of this class are cloneable with this method.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{WolfYamlHandler$clone(deep = FALSE)}
+    \preformatted{YamlHandler$clone(deep = FALSE)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
