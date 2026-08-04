@@ -169,21 +169,21 @@ Wolf <- R6::R6Class(
             return(handler)
           }
 
-          if (!nzchar(name)) {
-            stop(fuj::input_error("cannot add unnamed R6 handler"))
-          }
-
           if (inherits(handler, "R6ClassGenerator")) {
+            if (!nzchar(name)) {
+              stop(fuj::input_error("cannot add unnamed R6 handler"))
+            }
             handler$new(name = name)
           } else if (is.character(handler)) {
-            switch(
-              handler,
-              "log" = LogHandler$new(name = name),
-              "csv" = TableHandler$new(name = name, type = "csv"),
-              "tsv" = TableHandler$new(name = name, type = "tsv"),
-              "dcf" = TableHandler$new(name = name, type = "dcf"),
-              stop(fuj::input_error("unknown handler type: ", handler))
+            handler_class <- get(
+              sprintf(
+                "%sHandler",
+                sub("(^[a-z])", "\\U\\1", handler, perl = TRUE)
+              ),
+              envir = asNamespace("wolf"),
+              mode = "environment"
             )
+            handler_class$new(name = if (nzchar(name)) name else handler)
           }
         },
         name = names,
