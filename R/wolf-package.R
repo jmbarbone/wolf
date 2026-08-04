@@ -28,7 +28,7 @@ internal_handler <- NULL
 }
 
 .onUnload <- function(libname) {
-  #> internal$debug("wolf-internal logger shutting down")
+  internal$debug("wolf-internal logger shutting down")
 }
 
 .force_namespace_imports <- function() {
