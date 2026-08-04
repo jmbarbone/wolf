@@ -6,7 +6,7 @@
 #' @include handlers-file.R
 #' @export
 YamlHandler <- R6::R6Class(
-  "WolfYamlHandler",
+  "YamlHandler",
   inherit = FileHandler,
   public = list(
     #' @description Initializes the handler
@@ -57,7 +57,7 @@ YamlHandler <- R6::R6Class(
 #' @include handlers-file.R
 #' @export
 Yaml12Handler <- R6::R6Class(
-  "WolfYaml12Handler",
+  "Yaml12Handler",
   inherit = FileHandler,
   public = list(
     #' @description Initializes the handler

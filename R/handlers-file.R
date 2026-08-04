@@ -5,7 +5,7 @@
 #' @include handlers.R
 #' @export
 FileHandler <- R6::R6Class(
-  "WolfFileHandler",
+  "FileHandler",
   inherit = WolfHandler,
   public = list(
     #' @field path The file path
@@ -76,7 +76,7 @@ FileHandler <- R6::R6Class(
 #'
 #' @export
 LogHandler <- R6::R6Class(
-  "WolfLogHandler",
+  "LogHandler",
   inherit = FileHandler,
   public = list(
     #' @description Writes a single [format()]'ed [wolf::wolf_entry()] object to
@@ -98,7 +98,7 @@ LogHandler <- R6::R6Class(
 #'
 #' @export
 DcfHandler <- R6::R6Class(
-  "WolfDcfHandler",
+  "DcfHandler",
   inherit = FileHandler,
   public = list(
     #' @description Writes a single [wolf::wolf_entry()] object to

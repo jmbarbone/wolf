@@ -5,7 +5,7 @@
 #' @include handlers.R
 #' @export
 ConnectionHandler <- R6::R6Class(
-  "WolfConnectionHandler",
+  "ConnectionHandler",
   inherit = WolfHandler,
   public = list(
     #' @field connection The file connection

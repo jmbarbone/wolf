@@ -15,7 +15,7 @@
 #' @md
 #' @export
 TableHandler <- R6::R6Class(
-  "WolfTableHandler",
+  "TableHandler",
   inherit = FileHandler,
   public = list(
     #' @description Initializes the handler
@@ -115,7 +115,7 @@ modify_opts <- function(...) {
 #' @export
 #' @rdname TableHandler
 CsvHandler <- R6::R6Class(
-  "WolfCsvHandler",
+  "CsvHandler",
   inherit = TableHandler,
   public = list(
     #' @description Initializes the handler
@@ -139,7 +139,7 @@ CsvHandler <- R6::R6Class(
 #' @export
 #' @rdname TableHandler
 Csv2Handler <- R6::R6Class(
-  "WolfCsv2Handler",
+  "Csv2Handler",
   inherit = TableHandler,
   private = list(
     path_ext = ".csv2",
@@ -154,7 +154,7 @@ Csv2Handler <- R6::R6Class(
 #' @export
 #' @rdname TableHandler
 TsvHandler <- R6::R6Class(
-  "WolfTsvHandler",
+  "TsvHandler",
   inherit = TableHandler,
   private = list(
     path_ext = ".tsv",
@@ -168,7 +168,7 @@ TsvHandler <- R6::R6Class(
 #' @export
 #' @rdname TableHandler
 Tsv2Handler <- R6::R6Class(
-  "WolfTsv2Handler",
+  "Tsv2Handler",
   inherit = TableHandler,
   private = list(
     path_ext = ".tsv2",

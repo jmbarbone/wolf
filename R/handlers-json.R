@@ -6,7 +6,7 @@
 #'
 #' @export
 JsonHandler <- R6::R6Class(
-  "WolfJsonHandler",
+  "JsonHandler",
   inherit = FileHandler,
   public = list(
     #' @description Writes a single [wolf::wolf_entry()] object to
@@ -52,7 +52,7 @@ JsonHandler <- R6::R6Class(
 #'
 #' @export
 JsonlHandler <- R6::R6Class(
-  "WolfJsonlHandler",
+  "JsonlHandler",
   inherit = FileHandler,
   public = list(
     #' @description Writes a single [wolf::wolf_entry()] object to
