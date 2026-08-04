@@ -115,5 +115,5 @@ as.list.wolf_entry <- function(x, ...) {
 
 #' @export
 as.data.frame.wolf_entry <- function(x, ...) {
-  mark::quick_df(as.list(x))
+  fuj::quick_df(as.list(x))
 }
