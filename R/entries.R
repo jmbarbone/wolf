@@ -105,7 +105,7 @@ format.wolf_entry <- function(x, method = c("partial", "full"), ...) {
 #' @export
 as.list.wolf_entry <- function(x, ...) {
   x <- unclass(x)
-  x$message <- x$message %||% ""
+  x$message <- paste0(x$message %||% "", collapse = " ")
   x$name <- x$name %||% ""
   x$condition <- x$condition %||% ""
   x$expr <- format(x$expr %||% NA)
@@ -115,5 +115,5 @@ as.list.wolf_entry <- function(x, ...) {
 
 #' @export
 as.data.frame.wolf_entry <- function(x, ...) {
-  fuj::quick_df(as.list(x))
+  fuj::quick_df(as.list.wolf_entry(x))
 }
