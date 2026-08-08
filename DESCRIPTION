@@ -38,4 +38,6 @@ Suggests:
     rmarkdown,
     yaml,
     yaml12
+Remotes:
+    fuj=github::jmbarbone/fuj@v0.2.2.9013
 VignetteBuilder: knitr
