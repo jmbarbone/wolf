@@ -39,6 +39,7 @@ wolf <- function(
 # nolint next: object_name_linter.
 Wolf <- R6::R6Class(
   "Wolf",
+  ## active ----
   active = list(
     #' @field level The logging level.  Automatically validated when set.
     level = local({
@@ -95,14 +96,30 @@ Wolf <- R6::R6Class(
         # TODO implement this
         private$entries_
       }
+    }),
+
+    #' @field global Are handlers active in [globalCallingHandlers()]
+    global = local({
+      function(value) {
+        stop(
+          "cannot set 'global' directly; use 'on()' or 'off()'",
+          call. = FALSE
+        )
+
+        private$global_
+      }
     })
   ),
+  ## public ----
   public = list(
     #' @field name The name of the wolf logger
     name = NULL,
 
     #' @field path The path to store log files
     path = NULL,
+
+    #' @field active If logger is active
+    active = TRUE,
 
     #' @description Create a new Wolf logger.
     #' @param name Name of the logger. Defaults to the current working
@@ -124,6 +141,44 @@ Wolf <- R6::R6Class(
       self$path <- path
       self$level <- level
       self
+    },
+
+    #' @description Turns on handlers in [globalCallingHandlers()]
+    on = function() {
+      if (private$global_) {
+        return(invisible(self))
+      }
+
+      private$global_ <- TRUE
+
+      if (private$global_handler_init) {
+        return(invisible(self))
+      }
+
+      handler <- function(cnd) {
+        if (!(self$active && private$global_)) {
+          return(invisible(self))
+        }
+
+        private$impl_handlers(
+          list(
+            condition = cnd,
+            frame = parent.frame(),
+            time = Sys.time(),
+            expr = NULL
+          )
+        )
+      }
+
+      globalCallingHandlers(condition = handler)
+      private$global_handler_init <- TRUE
+      invisible(self)
+    },
+
+    #' @description Turns off handlers in [globalCallingHandlers()]
+    off = function() {
+      private$global_ <- FALSE
+      invisible(self)
     },
 
     #' @description Evaluate an expression and log any conditions that arise
@@ -237,11 +292,18 @@ Wolf <- R6::R6Class(
       invisible(self)
     }
   ),
+  ## private ----
   private = list(
     levels = character(),
     handlers_ = list(),
     entries_ = list(),
+    global_ = FALSE,
+    global_handler_init = FALSE,
     impl_handlers = function(spec) {
+      if (!self$active) {
+        return()
+      }
+
       type <- get_type(spec$condition)
       type <- switch(
         type,
@@ -266,6 +328,10 @@ Wolf <- R6::R6Class(
         if (type %in% private$levels) {
           handler$process(entry)
         }
+      }
+
+      if (type == "error") {
+        stop(spec$condition)
       }
     },
 
