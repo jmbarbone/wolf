@@ -34,5 +34,8 @@ Collate:
     'wolf.R'
 Suggests: 
     jsonlite,
+    knitr,
+    rmarkdown,
     yaml,
     yaml12
+VignetteBuilder: knitr

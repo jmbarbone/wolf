@@ -27,6 +27,8 @@ invisible(file.remove(my_handler$path))
     \item{\code{name}}{The name of the wolf logger}
 
     \item{\code{path}}{The path to store log files}
+
+    \item{\code{active}}{If logger is active}
   }
   \if{html}{\out{</div>}}
 }
@@ -39,6 +41,8 @@ invisible(file.remove(my_handler$path))
 To modify handlers, use \verb{$add_handler()} or \verb{$remove_handler()}.}
 
     \item{\code{entries}}{The list of log entries captured by the logger. Read only.}
+
+    \item{\code{global}}{Are handlers active in \code{\link[=globalCallingHandlers]{globalCallingHandlers()}}}
   }
   \if{html}{\out{</div>}}
 }
@@ -46,6 +50,8 @@ To modify handlers, use \verb{$add_handler()} or \verb{$remove_handler()}.}
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-Wolf-initialize}{\code{Wolf$new()}}
+    \item \href{#method-Wolf-on}{\code{Wolf$on()}}
+    \item \href{#method-Wolf-off}{\code{Wolf$off()}}
     \item \href{#method-Wolf-log}{\code{Wolf$log()}}
     \item \href{#method-Wolf-add_handler}{\code{Wolf$add_handler()}}
     \item \href{#method-Wolf-remove_handler}{\code{Wolf$remove_handler()}}
@@ -84,6 +90,30 @@ directory.}
       \item{\code{...}}{Additional arguments (currently unused).}
       \item{\code{.default}}{Logical; if \code{TRUE}, adds the default handler.}
     }
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Wolf-on"></a>}}
+\if{latex}{\out{\hypertarget{method-Wolf-on}{}}}
+\subsection{\code{Wolf$on()}}{
+  Turns on handlers in \code{\link[=globalCallingHandlers]{globalCallingHandlers()}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Wolf$on()}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Wolf-off"></a>}}
+\if{latex}{\out{\hypertarget{method-Wolf-off}{}}}
+\subsection{\code{Wolf$off()}}{
+  Turns off handlers in \code{\link[=globalCallingHandlers]{globalCallingHandlers()}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Wolf$off()}
     \if{html}{\out{</div>}}
   }
 }

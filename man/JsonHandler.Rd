@@ -20,11 +20,12 @@ continuous writing.
     \item \href{#method-JsonHandler-clone}{\code{JsonHandler$clone()}}
   }
 }
-\if{html}{\out{<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="init_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-init_writer'><code>WolfHandler$init_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="FileHandler" data-id="initialize"><a href='../../wolf/html/FileHandler.html#method-FileHandler-initialize'><code>FileHandler$initialize()</code></a></span></li>
 </ul>

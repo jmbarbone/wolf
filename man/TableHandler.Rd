@@ -39,6 +39,7 @@ Write entries to a table file (CSV, TSV, etc.)
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
 </ul>
 </details>}}
@@ -162,6 +163,7 @@ file. This will append the \code{entries} as new rows
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
@@ -223,6 +225,7 @@ file. This will append the \code{entries} as new rows
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
@@ -264,6 +267,7 @@ file. This will append the \code{entries} as new rows
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>
@@ -305,6 +309,7 @@ file. This will append the \code{entries} as new rows
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="bulk_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-bulk_writer'><code>TableHandler$bulk_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="TableHandler" data-id="init_writer"><a href='../../wolf/html/TableHandler.html#method-TableHandler-init_writer'><code>TableHandler$init_writer()</code></a></span></li>

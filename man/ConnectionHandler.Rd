@@ -25,12 +25,13 @@ Writes entries to a connection
     \item \href{#method-ConnectionHandler-clone}{\code{ConnectionHandler$clone()}}
   }
 }
-\if{html}{\out{<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="close"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-close'><code>WolfHandler$close()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="init_writer"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-init_writer'><code>WolfHandler$init_writer()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read'><code>WolfHandler$read()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
 </ul>
 </details>}}
@@ -41,7 +42,7 @@ Writes entries to a connection
   Initialized the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{ConnectionHandler$new(name, connection = stdout(), ...)}
+    \preformatted{ConnectionHandler$new(name, connection = file(), ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{

@@ -38,6 +38,7 @@ been written}
     \item \href{#method-WolfHandler-single_writer}{\code{WolfHandler$single_writer()}}
     \item \href{#method-WolfHandler-bulk_writer}{\code{WolfHandler$bulk_writer()}}
     \item \href{#method-WolfHandler-init_writer}{\code{WolfHandler$init_writer()}}
+    \item \href{#method-WolfHandler-read_lines}{\code{WolfHandler$read_lines()}}
     \item \href{#method-WolfHandler-read}{\code{WolfHandler$read()}}
     \item \href{#method-WolfHandler-close}{\code{WolfHandler$close()}}
     \item \href{#method-WolfHandler-clone}{\code{WolfHandler$clone()}}
@@ -154,6 +155,21 @@ the column names in a file before writing
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{WolfHandler$init_writer()}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WolfHandler-read_lines"></a>}}
+\if{latex}{\out{\hypertarget{method-WolfHandler-read_lines}{}}}
+\subsection{\code{WolfHandler$read_lines()}}{
+  Read lines
+
+
+  Read entries
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{WolfHandler$read_lines()}
     \if{html}{\out{</div>}}
   }
 }
