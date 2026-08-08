@@ -117,6 +117,17 @@ WolfHandler <- R6::R6Class(
       NULL
     },
 
+    #' @description Read lines
+    #' @description Read entries
+    read_lines = function() {
+      readLines(
+        self$path %||% self$connection,
+        warn = FALSE,
+        encoding = "UTF-8",
+        skipNul = TRUE
+      )
+    },
+
     #' @description Read entries
     read = function() {
       self$entries
