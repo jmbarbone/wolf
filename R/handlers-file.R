@@ -83,7 +83,7 @@ LogHandler <- R6::R6Class(
     #' the log file
     single_writer = function(entry) {
       cat(
-        trimws(format(entry, "full")),
+        format(entry, "full"),
         "\n",
         sep = "",
         file = self$path,

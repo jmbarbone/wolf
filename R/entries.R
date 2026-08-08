@@ -88,14 +88,14 @@ format.wolf_entry <- function(x, method = c("partial", "full"), ...) {
       format(x$time, "%Y-%m-%d %H:%M:%S"),
       x$type,
       x$name,
-      paste0(x$message %||% "", collapse = "")
+      paste0(trimws(x$message %||% ""), collapse = "")
     ),
     full = sprintf(
       "%s [%s] (%s) %s `%s` %s",
       format(x$time, "%Y-%m-%d %H:%M:%S"),
       x$type,
       x$name %||% "",
-      paste0(x$message %||% "", collapse = ""),
+      paste0(trimws(x$message %||% ""), collapse = ""),
       format(x$expr %||% NA),
       format(x$frame %||% NA)
     )
