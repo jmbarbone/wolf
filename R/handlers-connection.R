@@ -43,7 +43,7 @@ ConnectionHandler <- R6::R6Class(
 
       if (
         inherits(self$connection, "connection") &&
-          isOpen(self$connection) &&
+          tryCatch(isOpen(self$connection), error = function(e) FALSE) &&
           !self$connection %in% list(stdout(), stderr())
       ) {
         close(self$connection)
