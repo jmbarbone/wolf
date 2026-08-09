@@ -9,9 +9,17 @@ Wolf default log handler
 \section{Super classes}{
 \code{\link[wolf:WolfHandler]{WolfHandler}} -> \code{\link[wolf:FileHandler]{FileHandler}} -> \code{LogHandler}
 }
+\section{Public fields}{
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{format_method}}{Format method}
+  }
+  \if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
+    \item \href{#method-LogHandler-initialize}{\code{LogHandler$new()}}
     \item \href{#method-LogHandler-single_writer}{\code{LogHandler$single_writer()}}
     \item \href{#method-LogHandler-clone}{\code{LogHandler$clone()}}
   }
@@ -24,10 +32,31 @@ Wolf default log handler
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="process"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-process'><code>WolfHandler$process()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="read_lines"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-read_lines'><code>WolfHandler$read_lines()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="WolfHandler" data-id="write"><a href='../../wolf/html/WolfHandler.html#method-WolfHandler-write'><code>WolfHandler$write()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="wolf" data-topic="FileHandler" data-id="initialize"><a href='../../wolf/html/FileHandler.html#method-FileHandler-initialize'><code>FileHandler$initialize()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="wolf" data-topic="FileHandler" data-id="read"><a href='../../wolf/html/FileHandler.html#method-FileHandler-read'><code>FileHandler$read()</code></a></span></li>
 </ul>
 </details>}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LogHandler-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-LogHandler-initialize}{}}}
+\subsection{\code{LogHandler$new()}}{
+  Initializes the handler
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{LogHandler$new(name, format_method = self$format_method, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name, ...}}{Additional arguments passed to
+`FileHandler$initialize(...)`}
+      \item{\code{format_method}}{Format method}
+      \item{\code{format}}{Format method.  One of `"full"`, `"short"`, or `"json"`.}
+    }
+    \if{html}{\out{</div>}}
+  }
+}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LogHandler-single_writer"></a>}}
 \if{latex}{\out{\hypertarget{method-LogHandler-single_writer}{}}}
