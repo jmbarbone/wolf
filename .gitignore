@@ -4,3 +4,5 @@
 .Ruserdata
 *.log
 .positai
+inst/doc
+*.Rd
