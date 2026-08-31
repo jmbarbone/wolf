@@ -42,7 +42,8 @@ Stderr Handler
     \if{html}{\out{<div class="arguments">}}
     \describe{
       \item{\code{name}}{Handler name}
-      \item{\code{...}}{Additional arguments passed to `ConnectionHandler$initialize(...)`}
+      \item{\code{...}}{Additional arguments passed to
+`ConnectionHandler$initialize(...)`}
     }
     \if{html}{\out{</div>}}
   }
