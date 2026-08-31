@@ -32,11 +32,9 @@ library(wolf)
 w <- wolf("readme")
 w$add_handler("stdout")
 w$info("Hello, wolf!")
-#> 2026-02-03 23:51:22 [info] (readme) Hello, wolf!
-#> Hello, wolf!
+#> 2026-08-30 21:06:39 [info] (readme) Hello, wolf!
 w$debug("This is a debug message.")
-#> 2026-02-03 23:51:22 [debug] (readme) This is a debug message.
-#> This is a debug message.
+#> 2026-08-30 21:06:39 [debug] (readme) This is a debug message.
 ```
 
 The `Wolf` class also has a `$log()` method, which accepts an expression
@@ -52,11 +50,10 @@ hello <- function() {
 }
 
 w$log(hello())
-#> 2026-02-03 23:51:22 [message] (readme) I'm inside a function
-#> I'm inside a function
+#> 2026-08-30 21:06:39 [info] (readme) I'm inside a function
+# NOTE: try() doesn't signal a condition
 try(w$log(df$column))
-#> 2026-02-03 23:51:22 [error] (readme) object of type 'closure' is not subsettable
-#> Error : object of type 'closure' is not subsettable
+#> 2026-08-30 21:06:39 [error] (readme) object of type 'closure' is not subsettableError : object of type 'closure' is not subsettable
 ```
 
 ## Other logging packages

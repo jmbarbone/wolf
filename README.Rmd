@@ -59,6 +59,7 @@ hello <- function() {
 }
 
 w$log(hello())
+# NOTE: try() doesn't signal a condition
 try(w$log(df$column))
 ```
 
