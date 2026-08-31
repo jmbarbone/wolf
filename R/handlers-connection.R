@@ -61,7 +61,8 @@ StdoutHandler <- R6::R6Class(
   public = list(
     #' @description Initializes the handler
     #' @param name Handler name
-    #' @param ... Additional arguments passed to `ConnectionHandler$initialize(...)`
+    #' @param ... Additional arguments passed to
+    #'   `ConnectionHandler$initialize(...)`
     initialize = function(name, ...) {
       super$initialize(name, stdout(), ...)
     }
@@ -77,7 +78,8 @@ StderrHandler <- R6::R6Class(
   public = list(
     #' @description Initializes the handler
     #' @param name Handler name
-    #' @param ... Additional arguments passed to `ConnectionHandler$initialize(...)`
+    #' @param ... Additional arguments passed to
+    #'   `ConnectionHandler$initialize(...)`
     initialize = function(name, ...) {
       super$initialize(name, stderr(), ...)
     }
