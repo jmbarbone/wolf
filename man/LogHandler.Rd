@@ -12,7 +12,7 @@ Wolf default log handler
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
   \describe{
-    \item{\code{format_method}}{Format method}
+    \item{\code{format_method}}{Format methods}
   }
   \if{html}{\out{</div>}}
 }
@@ -42,7 +42,7 @@ Wolf default log handler
   Initializes the handler
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{LogHandler$new(name, format_method = self$format_method, ...)}
+    \preformatted{LogHandler$new(name, format = self$format_method, ...)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -50,7 +50,6 @@ Wolf default log handler
     \describe{
       \item{\code{name, ...}}{Additional arguments passed to
 `FileHandler$initialize(...)`}
-      \item{\code{format_method}}{Format method}
       \item{\code{format}}{Format method.  One of `"full"`, `"short"`, or `"json"`.}
     }
     \if{html}{\out{</div>}}

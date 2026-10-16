@@ -19,7 +19,7 @@ Imports:
     fuj,
     R6 (>= 2.6.1),
     utils
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
 Collate: 
     'entries.R'
     'handlers.R'
