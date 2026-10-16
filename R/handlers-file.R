@@ -79,15 +79,15 @@ LogHandler <- R6::R6Class(
   "LogHandler",
   inherit = FileHandler,
   public = list(
-    #' @field format_method Format method
+    #' @field format_method Format methods
     format_method = eval(formals(format.wolf_entry)$method),
 
     #' @description Initializes the handler
     #' @param format Format method.  One of `"full"`, `"short"`, or `"json"`.
     #' @param name,... Additional arguments passed to
     #'   `FileHandler$initialize(...)`
-    initialize = function(name, format_method = self$format_method, ...) {
-      self$format_method <- fuj::match_arg(format_method)
+    initialize = function(name, format = self$format_method, ...) {
+      self$format_method <- fuj::match_arg(format, self$format_method)
       super$initialize(name, ...)
     },
 
@@ -95,7 +95,7 @@ LogHandler <- R6::R6Class(
     #' the log file
     single_writer = function(entry) {
       cat(
-        format.wolf_entry(entry, self$format),
+        format.wolf_entry(entry, self$format_method),
         "\n",
         sep = "",
         file = self$path,
