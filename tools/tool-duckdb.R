@@ -4,6 +4,12 @@ require(wolf)
 library(R6)
 library(duckdb)
 
+if (fuj::available_namespace("tibble")) {
+  tibble <- tibble::as_tibble
+} else {
+  tibble <- as.data.frame
+}
+
 DuckDbHandler <- R6Class(
   "DuckDbHandler",
   inherit = WolfHandler,
@@ -18,17 +24,17 @@ DuckDbHandler <- R6Class(
     },
     init_writer = function() {
       DBI::dbSendQuery(
-        con,
+        self$connection,
         sprintf(
           "CREATE TABLE IF NOT EXISTS %s (
             time TIMESTAMP,
-            type TEXT,
-            name TEXT,
-            message TEXT,
-            frame TEXT,
-            expr TEXT,
-            condition TEXT,
-            id TEXT
+            type STRING,
+            name STRING,
+            message STRING,
+            frame STRING,
+            expr STRING,
+            condition STRING,
+            id STRING
           )",
           self$table
         )
@@ -45,19 +51,8 @@ DuckDbHandler <- R6Class(
     read = function() {
       df <- DBI::dbReadTable(self$connection, self$table)
       df$type <- ordered(df$type, c("debug", "info", "warn", "error"))
-      df$expr <- lapply(
-        df$expr,
-        function(e) {
-          if (is.null(e)) {
-            return(NULL)
-          }
-          str2expression(e)
-        }
-      )
-      if (requireNamespace("tibble", quietly = TRUE)) {
-        df <- tibble::as_tibble(df)
-      }
-      df
+      df$expr <- lapply(df$expr, \(e) if (!is.null(e)) str2expression(e))
+      tibble(df)
     }
   )
 )
