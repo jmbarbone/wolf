@@ -24,6 +24,7 @@ Collate:
     'entries.R'
     'handlers.R'
     'handlers-connection.R'
+    'handlers-database.R'
     'handlers-file.R'
     'handlers-json.R'
     'handlers-table.R'
