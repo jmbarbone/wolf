@@ -7,8 +7,8 @@
 #'
 #' @param connection A database connection object
 #' @export
-DBIHandler <- R6::R6Class(
-  "DBIHandler",
+DbiHandler <- R6::R6Class(
+  "DbiHandler",
   inherit = WolfHandler,
   public = list(
     #' @field connection A database connection object
