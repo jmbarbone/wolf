@@ -57,6 +57,13 @@ WolfHandler <- R6::R6Class(
     initialize = function(name, ...) {
       self$name <- name
       private$validate()
+
+      # TODO uh, is this needed?  Shouldn't we always init?
+      if (!private$initialized) {
+        self$init_writer()
+        private$initialized <- TRUE
+      }
+
       self
     },
 
@@ -85,11 +92,6 @@ WolfHandler <- R6::R6Class(
     #' and there are entries in `self$queued`, each file is written.  To control
     #' _how_ the entries are written, modify the `$writer()` method
     write = function(entry) {
-      if (!private$initialized) {
-        self$init_writer()
-        private$initialized <- TRUE
-      }
-
       private$write_delayed()
       self$single_writer(entry)
     },
@@ -155,7 +157,7 @@ WolfHandler <- R6::R6Class(
 
     write_delayed = function() {
       if (!is.null(private$queue_)) {
-        private$bulk_writer(private$queue_)
+        self$bulk_writer(private$queue_)
         private$queue_ <- NULL
       }
     },

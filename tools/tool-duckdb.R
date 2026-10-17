@@ -67,3 +67,21 @@ w$info("This is an info message")
 w$warn("This is a warning message")
 
 print(duck_db_handler$read())
+
+# now with just the database handler
+
+dbi_con <- DBI::dbConnect(duckdb(), dbdir = ":memory:")
+duck_handler <- DbiHandler$new(
+  "duckdb",
+  connection = dbi_con,
+  table = "wolf",
+  delay = TRUE
+)
+duck_handler$delay <- TRUE
+w <- wolf()
+w$add_handler(duck_handler)
+w$info("This is a message")
+DBI::dbReadTable(dbi_con, "wolf")
+duck_handler$delay <- FALSE
+w$info("This is another message")
+DBI::dbReadTable(dbi_con, "wolf")

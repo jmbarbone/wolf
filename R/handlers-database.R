@@ -24,9 +24,9 @@ DbiHandler <- R6::R6Class(
     #' @param ... Additional arguments (not used)
     initialize = function(name, connection, table, ...) {
       requireNamespace("DBI")
-      super$initialize(name, ...) # very highly recommended
       self$connection <- connection
       self$table <- table
+      super$initialize(name, ...) # very highly recommended
     },
 
     #' @description Initializes the database table if it does not exist
