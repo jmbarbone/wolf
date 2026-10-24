@@ -53,17 +53,13 @@ WolfHandler <- R6::R6Class(
 
     #' @param name name identifier
     #' @param ... Additional arguments (not used)
+    #' @param delay Whether entries should be written immediately or not.
     #' @description Initialized object
-    initialize = function(name, ...) {
+    initialize = function(name, ..., delay = FALSE) {
       self$name <- name
+      self$delay <- delay
       private$validate()
-
-      # TODO uh, is this needed?  Shouldn't we always init?
-      if (!private$initialized) {
-        self$init_writer()
-        private$initialized <- TRUE
-      }
-
+      self$init_writer()
       self
     },
 
@@ -143,7 +139,6 @@ WolfHandler <- R6::R6Class(
     }
   ),
   private = list(
-    initialized = FALSE,
     entries_ = NULL,
     queue_ = NULL,
 
